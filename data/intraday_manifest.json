@@ -1,0 +1,22 @@
+{
+  "generated_utc": "2026-09-15T14:28:09.038255+00:00",
+  "code": "US.QQQ",
+  "ktype": "5min",
+  "autype": "NONE (raw, unadjusted) - required for correct share counts and order prices",
+  "timestamp_convention": "time_key is the bar CLOSE; first session bar 09:35 covers 09:30-09:35",
+  "session_coverage": "regular session only, 09:35-16:00 ET; no pre/post market bars",
+  "bars": 156324,
+  "sessions": 2012,
+  "first_bar": "2018-09-10 09:35:00",
+  "last_bar": "2026-09-11 16:00:00",
+  "years": 8.0,
+  "bars_per_day": {
+    "78": 1995,
+    "42": 17
+  },
+  "first_close_raw": 181.66,
+  "last_close_raw": 714.88,
+  "file": "data/raw/US_QQQ_5min_raw.csv",
+  "sha256": "3e5a36c0a0cd72ededf3985b711ec494ced74555f83e6236e60035a19c054625",
+  "size_mb": 12.4
+}

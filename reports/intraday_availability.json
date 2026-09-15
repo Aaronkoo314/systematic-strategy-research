@@ -1,0 +1,56 @@
+{
+  "utc": "2026-09-15T14:25:52.448012+00:00",
+  "code": "US.QQQ",
+  "earliest_served": {
+    "2006-09-01": "2018-09-10 09:35:00",
+    "2015-01-01": "2018-09-10 09:35:00",
+    "2020-01-01": "2020-01-02 09:35:00",
+    "2023-01-01": "2023-01-03 09:35:00",
+    "2025-01-01": "2025-01-02 09:35:00",
+    "2026-01-01": "2026-01-02 09:35:00",
+    "2026-06-01": "2026-06-01 09:35:00",
+    "K_1M": "2018-09-10 09:31:00",
+    "K_15M": "2018-09-10 09:45:00",
+    "K_30M": "2018-09-10 10:00:00",
+    "K_60M": "2018-09-10 10:30:00"
+  },
+  "five_min": {
+    "total_bars": 156324,
+    "first_bar": "2018-09-10 09:35:00",
+    "last_bar": "2026-09-11 16:00:00",
+    "sessions": 2012,
+    "years": 8.0,
+    "bars_per_day_median": 78,
+    "bars_per_day_min": 42,
+    "bars_per_day_max": 78,
+    "first_bar_time_of_day": [
+      "09:35",
+      "09:40",
+      "09:45"
+    ],
+    "last_bar_time_of_day": [
+      "15:50",
+      "15:55",
+      "16:00"
+    ],
+    "extended_hours_included": false,
+    "calendar_expected": 2012,
+    "calendar_missing": 0,
+    "calendar_missing_examples": [],
+    "file": "data/raw/US_QQQ_5min.csv"
+  },
+  "last_price": 706.38,
+  "cost_arithmetic": {
+    "last_price": 706.38,
+    "whole_shares_at_TP_10000": 14,
+    "notional": 9889.32,
+    "idle_cash": 110.68,
+    "round_trip_usd": 2.456,
+    "round_trip_pct_of_TP": 0.0246,
+    "annual_pct_at_24_rt": 0.589,
+    "annual_pct_at_52_rt": 1.277,
+    "annual_pct_at_252_rt": 6.189
+  },
+  "quota_before": "(18, 282, [])",
+  "quota_after": "(18, 282, [])"
+}
