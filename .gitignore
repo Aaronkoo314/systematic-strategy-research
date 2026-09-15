@@ -1,0 +1,36 @@
+# --- Secrets: never commit. ---
+# moomoo login password, trading (unlock) password, API tokens and private keys
+# must never enter this repository, in any form, including examples and logs.
+.env
+.env.*
+*.key
+*.pem
+secrets.yaml
+secrets.json
+configs/live.yaml
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# --- Local research artefacts (regenerable; keep the repo reviewable) ---
+data/raw/
+*.parquet
+
+# --- OS ---
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# --- Operator's private financial data: NEVER commit. ---
+# Raw probe logs contain account balances, buying power, margin figures, open
+# positions and researched-symbol history. Keep them local.
+logs/*.json
+logs/*.log
+!logs/redacted/
+# Committed instead: logs/redacted/*.json, produced by tools/redact_logs.py,
+# which keeps only capability evidence (what the API supports, quotas, limits).

@@ -1,0 +1,316 @@
+{
+  "utc": "2026-09-15T08:27:58.650618+00:00",
+  "checks": [
+    {
+      "check": "subscribe QUOTE (US ETFs)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "get_stock_quote",
+      "ok": true,
+      "detail": [
+        {
+          "code": "US.SPY",
+          "data_date": "2026-09-14",
+          "data_time": "16:00:00.267",
+          "last_price": 760.88,
+          "prev_close_price": 764.29,
+          "volume": 43992428.0
+        },
+        {
+          "code": "US.IEF",
+          "data_date": "2026-09-14",
+          "data_time": "15:59:58.064",
+          "last_price": 90.93,
+          "prev_close_price": 91.01,
+          "volume": 8885770.0
+        },
+        {
+          "code": "US.BIL",
+          "data_date": "2026-09-14",
+          "data_time": "16:00:00.225",
+          "last_price": 91.5,
+          "prev_close_price": 91.5,
+          "volume": 12227753.0
+        }
+      ]
+    },
+    {
+      "check": "get_stock_quote columns",
+      "ok": true,
+      "detail": [
+        "code",
+        "name",
+        "data_date",
+        "data_time",
+        "last_price",
+        "open_price",
+        "high_price",
+        "low_price",
+        "prev_close_price",
+        "volume",
+        "turnover",
+        "turnover_rate",
+        "amplitude",
+        "suspension",
+        "listing_date",
+        "price_spread",
+        "dark_status",
+        "sec_status",
+        "strike_price",
+        "contract_size",
+        "open_interest",
+        "implied_volatility",
+        "premium",
+        "delta",
+        "gamma",
+        "vega",
+        "theta",
+        "rho",
+        "net_open_interest",
+        "expiry_date_distance",
+        "contract_nominal_value",
+        "owner_lot_multiplier",
+        "option_area_type",
+        "contract_multiplier",
+        "last_settle_price",
+        "position",
+        "position_change",
+        "index_option_type",
+        "pre_price",
+        "pre_high_price",
+        "pre_low_price",
+        "pre_volume",
+        "pre_turnover",
+        "pre_change_val",
+        "pre_change_rate",
+        "pre_amplitude",
+        "after_price",
+        "after_high_price",
+        "after_low_price",
+        "after_volume",
+        "after_turnover",
+        "after_change_val",
+        "after_change_rate",
+        "after_amplitude",
+        "overnight_price",
+        "overnight_high_price",
+        "overnight_low_price",
+        "overnight_volume",
+        "overnight_turnover",
+        "overnight_change_val",
+        "overnight_change_rate",
+        "overnight_amplitude"
+      ]
+    },
+    {
+      "check": "query_subscription (quota)",
+      "ok": true,
+      "detail": {
+        "total_used": 3,
+        "remain": 297,
+        "option_used_quota": 0,
+        "option_remain_quota": 60,
+        "own_used": 3,
+        "own_security_firm": "N/A",
+        "own_option_used_quota": 0,
+        "sub_list": {
+          "QUOTE": [
+            "US.SPY",
+            "US.BIL",
+            "US.IEF"
+          ]
+        }
+      }
+    },
+    {
+      "check": "subscribe ORDER_BOOK US.SPY (LV2 probe)",
+      "ok": true,
+      "detail": "None"
+    },
+    {
+      "check": "request_history_kline SPY 1min",
+      "ok": true,
+      "detail": [
+        {
+          "code": "US.SPY",
+          "name": "标普500ETF-SPDR",
+          "time_key": "2026-09-10 09:31:00",
+          "open": 758.03,
+          "close": 757.975,
+          "high": 758.4,
+          "low": 757.8,
+          "pe_ratio": 0.0,
+          "turnover_rate": 0.0,
+          "volume": 615359.0,
+          "turnover": 466481535.223,
+          "change_rate": -0.5804039874081788,
+          "last_close": 762.4
+        },
+        {
+          "code": "US.SPY",
+          "name": "标普500ETF-SPDR",
+          "time_key": "2026-09-10 09:32:00",
+          "open": 757.96,
+          "close": 757.92,
+          "high": 758.0,
+          "low": 757.65,
+          "pe_ratio": 0.0,
+          "turnover_rate": 0.0,
+          "volume": 287390.0,
+          "turnover": 217786345.751,
+          "change_rate": -0.0072561759952589015,
+          "last_close": 757.975
+        },
+        {
+          "code": "US.SPY",
+          "name": "标普500ETF-SPDR",
+          "time_key": "2026-09-10 09:33:00",
+          "open": 757.91,
+          "close": 757.88,
+          "high": 758.1,
+          "low": 757.61,
+          "pe_ratio": 0.0,
+          "turnover_rate": 0.0,
+          "volume": 310026.0,
+          "turnover": 234955661.28,
+          "change_rate": -0.005277601857711055,
+          "last_close": 757.92
+        }
+      ]
+    },
+    {
+      "check": "request_history_kline SPY 5min",
+      "ok": true,
+      "detail": [
+        {
+          "code": "US.SPY",
+          "name": "标普500ETF-SPDR",
+          "time_key": "2026-09-10 09:35:00",
+          "open": 758.03,
+          "close": 757.76,
+          "high": 758.4,
+          "low": 757.61,
+          "pe_ratio": 0.0,
+          "turnover_rate": 0.0,
+          "volume": 1714633.0,
+          "turnover": 1299579248.454,
+          "change_rate": -0.6086044071353602,
+          "last_close": 762.4
+        },
+        {
+          "code": "US.SPY",
+          "name": "标普500ETF-SPDR",
+          "time_key": "2026-09-10 09:40:00",
+          "open": 757.8,
+          "close": 758.43,
+          "high": 758.555,
+          "low": 757.55,
+          "pe_ratio": 0.0,
+          "turnover_rate": 0.0,
+          "volume": 546441.0,
+          "turnover": 414312826.296,
+          "change_rate": 0.08841849662161622,
+          "last_close": 757.76
+        },
+        {
+          "code": "US.SPY",
+          "name": "标普500ETF-SPDR",
+          "time_key": "2026-09-10 09:45:00",
+          "open": 758.42,
+          "close": 758.135,
+          "high": 758.74,
+          "low": 758.07,
+          "pe_ratio": 0.0,
+          "turnover_rate": 0.0,
+          "volume": 922725.0,
+          "turnover": 701264396.86,
+          "change_rate": -0.038896140711728054,
+          "last_close": 758.43
+        }
+      ]
+    },
+    {
+      "check": "request_trading_days US",
+      "ok": true,
+      "detail": "[{'time': '2026-09-01', 'trade_date_type': 'WHOLE'}, {'time': '2026-09-02', 'trade_date_type': 'WHOLE'}, {'time': '2026-09-03', 'trade_date_type': 'WHOLE'}, {'time': '2026-09-04', 'trade_date_type': 'WHOLE'}, {'time': '2026-09-08', 'trade_date_type': 'WHOLE'}, {'time': '2026-09-09', 'trade_date_type"
+    },
+    {
+      "check": "get_stock_basicinfo ETF",
+      "ok": true,
+      "detail": [
+        {
+          "code": "US.SPY",
+          "name": "标普500ETF-SPDR",
+          "lot_size": 1,
+          "stock_type": "ETF",
+          "stock_child_type": "N/A",
+          "stock_owner": "",
+          "option_type": "N/A",
+          "strike_time": "",
+          "strike_price": "N/A",
+          "suspension": "N/A",
+          "listing_date": "1970-01-01",
+          "stock_id": 202805,
+          "delisting": false,
+          "index_option_type": "N/A",
+          "main_contract": false,
+          "last_trade_time": "",
+          "exchange_type": "US_AMEX"
+        },
+        {
+          "code": "US.IEF",
+          "name": "美国国债7-10年ETF-iShares",
+          "lot_size": 1,
+          "stock_type": "ETF",
+          "stock_child_type": "N/A",
+          "stock_owner": "",
+          "option_type": "N/A",
+          "strike_time": "",
+          "strike_price": "N/A",
+          "suspension": "N/A",
+          "listing_date": "1970-01-01",
+          "stock_id": 205481,
+          "delisting": false,
+          "index_option_type": "N/A",
+          "main_contract": false,
+          "last_trade_time": "",
+          "exchange_type": "US_NYSE"
+        }
+      ]
+    },
+    {
+      "check": "accinfo_query REAL acc=[REDACTED]",
+      "ok": true,
+      "detail": "[REDACTED] — call succeeded; account balances and positions are intentionally not committed to version control"
+    },
+    {
+      "check": "position_list_query REAL",
+      "ok": true,
+      "detail": "[REDACTED] — call succeeded; account balances and positions are intentionally not committed to version control"
+    },
+    {
+      "check": "order_list_query REAL",
+      "ok": true,
+      "detail": "[REDACTED] — call succeeded; account balances and positions are intentionally not committed to version control"
+    },
+    {
+      "check": "accinfo_query SIMULATE acc=[REDACTED]",
+      "ok": true,
+      "detail": "[REDACTED] — call succeeded; account balances and positions are intentionally not committed to version control"
+    },
+    {
+      "check": "position_list_query SIMULATE",
+      "ok": true,
+      "detail": "[REDACTED] — call succeeded; account balances and positions are intentionally not committed to version control"
+    },
+    {
+      "check": "order_list_query SIMULATE",
+      "ok": true,
+      "detail": "[REDACTED] — call succeeded; account balances and positions are intentionally not committed to version control"
+    }
+  ],
+  "_redaction": "Account identifiers, balances, positions and researched-symbol history removed. Raw logs are retained locally and are git-ignored.",
+  "_source_log": "probe_quotes_20260915T082758650618+0000.json"
+}

@@ -1,0 +1,702 @@
+{
+  "checks": [
+    {
+      "check": "sdk version",
+      "ok": true,
+      "detail": "10.07.6708"
+    },
+    {
+      "check": "OpenQuoteContext",
+      "ok": true,
+      "detail": "connected to 127.0.0.1:11111"
+    },
+    {
+      "check": "get_global_state",
+      "ok": true,
+      "detail": {
+        "market_sz": "STIB_AFTER_HOURS_END",
+        "market_us": "PRE_MARKET_BEGIN",
+        "market_sh": "STIB_AFTER_HOURS_END",
+        "market_hk": "CLOSED",
+        "market_hkfuture": "FUTURE_DAY_OPEN",
+        "market_usfuture": "FUTURE_OPEN",
+        "market_sgfuture": "NIGHT_OPEN",
+        "market_jpfuture": "NIGHT_OPEN",
+        "market_sg": "AFTERNOON",
+        "market_my": "AFTERNOON",
+        "market_jp": "CLOSED",
+        "server_ver": "1010",
+        "trd_logined": true,
+        "timestamp": "1789460597",
+        "qot_logined": true,
+        "local_timestamp": 1789460597.983128,
+        "program_status_type": "READY",
+        "program_status_desc": ""
+      }
+    },
+    {
+      "check": "get_history_kl_quota",
+      "ok": true,
+      "detail": [
+        8,
+        292,
+        []
+      ]
+    },
+    {
+      "check": "get_market_state US.SPY",
+      "ok": true,
+      "detail": [
+        {
+          "code": "US.SPY",
+          "stock_name": "标普500ETF-SPDR",
+          "market_state": "PRE_MARKET_BEGIN"
+        }
+      ]
+    },
+    {
+      "check": "get_market_state US.AGG",
+      "ok": true,
+      "detail": [
+        {
+          "code": "US.AGG",
+          "stock_name": "美国全债市ETF-iShares",
+          "market_state": "PRE_MARKET_BEGIN"
+        }
+      ]
+    },
+    {
+      "check": "get_market_state US.BIL",
+      "ok": true,
+      "detail": [
+        {
+          "code": "US.BIL",
+          "stock_name": "1-3月美国国债ETF-SPDR",
+          "market_state": "PRE_MARKET_BEGIN"
+        }
+      ]
+    },
+    {
+      "check": "request_history_kline US.SPY (first rows)",
+      "ok": true,
+      "detail": {
+        "rows_returned": 5,
+        "earliest": "2006-09-01 00:00:00",
+        "columns": [
+          "code",
+          "name",
+          "time_key",
+          "open",
+          "close",
+          "high",
+          "low",
+          "pe_ratio",
+          "turnover_rate",
+          "volume",
+          "turnover",
+          "change_rate",
+          "last_close"
+        ]
+      }
+    },
+    {
+      "check": "request_history_kline US.AGG (first rows)",
+      "ok": true,
+      "detail": {
+        "rows_returned": 5,
+        "earliest": "2012-01-03 00:00:00",
+        "columns": [
+          "code",
+          "name",
+          "time_key",
+          "open",
+          "close",
+          "high",
+          "low",
+          "pe_ratio",
+          "turnover_rate",
+          "volume",
+          "turnover",
+          "change_rate",
+          "last_close"
+        ]
+      }
+    },
+    {
+      "check": "get_history_kl_quota (after use)",
+      "ok": true,
+      "detail": {
+        "used": 9,
+        "remaining": 291,
+        "symbol_detail": "[REDACTED] — reveals which instruments were researched"
+      }
+    },
+    {
+      "check": "get_acc_list FUTUSECURITIES/US",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUSECURITIES",
+          "filter_market": "US",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "MARGIN",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK_AND_OPTION",
+          "trdmarket_auth": [
+            "US"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUSECURITIES/HK",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUSECURITIES",
+          "filter_market": "HK",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "CASH",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK",
+          "trdmarket_auth": [
+            "HK"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUINC/US",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUINC",
+          "filter_market": "US",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "MARGIN",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK_AND_OPTION",
+          "trdmarket_auth": [
+            "US"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUINC/HK",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUINC",
+          "filter_market": "HK",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "CASH",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK",
+          "trdmarket_auth": [
+            "HK"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUSG/US",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUSG",
+          "filter_market": "US",
+          "acc_id": "[REDACTED]",
+          "trd_env": "REAL",
+          "acc_type": "MARGIN",
+          "card_num": "[REDACTED]",
+          "security_firm": "FUTUSG",
+          "sim_acc_type": "N/A",
+          "trdmarket_auth": [
+            "HK",
+            "US",
+            "HKCC",
+            "SG",
+            "HKFUND",
+            "SGFUND",
+            "USFUND",
+            "JP"
+          ],
+          "uni_card_num": "[REDACTED]"
+        },
+        {
+          "firm": "FUTUSG",
+          "filter_market": "US",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "MARGIN",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK_AND_OPTION",
+          "trdmarket_auth": [
+            "US"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUSG/HK",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUSG",
+          "filter_market": "HK",
+          "acc_id": "[REDACTED]",
+          "trd_env": "REAL",
+          "acc_type": "MARGIN",
+          "card_num": "[REDACTED]",
+          "security_firm": "FUTUSG",
+          "sim_acc_type": "N/A",
+          "trdmarket_auth": [
+            "HK",
+            "US",
+            "HKCC",
+            "SG",
+            "HKFUND",
+            "SGFUND",
+            "USFUND",
+            "JP"
+          ],
+          "uni_card_num": "[REDACTED]"
+        },
+        {
+          "firm": "FUTUSG",
+          "filter_market": "HK",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "CASH",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK",
+          "trdmarket_auth": [
+            "HK"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUSG/SG",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUSG",
+          "filter_market": "SG",
+          "acc_id": "[REDACTED]",
+          "trd_env": "REAL",
+          "acc_type": "MARGIN",
+          "card_num": "[REDACTED]",
+          "security_firm": "FUTUSG",
+          "sim_acc_type": "N/A",
+          "trdmarket_auth": [
+            "HK",
+            "US",
+            "HKCC",
+            "SG",
+            "HKFUND",
+            "SGFUND",
+            "USFUND",
+            "JP"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUAU/US",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUAU",
+          "filter_market": "US",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "MARGIN",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK_AND_OPTION",
+          "trdmarket_auth": [
+            "US"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUAU/HK",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUAU",
+          "filter_market": "HK",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "CASH",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK",
+          "trdmarket_auth": [
+            "HK"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUJP/US",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUJP",
+          "filter_market": "US",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "MARGIN",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK_AND_OPTION",
+          "trdmarket_auth": [
+            "US"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUJP/HK",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUJP",
+          "filter_market": "HK",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "CASH",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK",
+          "trdmarket_auth": [
+            "HK"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUMY/US",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUMY",
+          "filter_market": "US",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "MARGIN",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK_AND_OPTION",
+          "trdmarket_auth": [
+            "US"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUMY/HK",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUMY",
+          "filter_market": "HK",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "CASH",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK",
+          "trdmarket_auth": [
+            "HK"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUCA/US",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUCA",
+          "filter_market": "US",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "MARGIN",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK_AND_OPTION",
+          "trdmarket_auth": [
+            "US"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    },
+    {
+      "check": "get_acc_list FUTUCA/HK",
+      "ok": true,
+      "detail": [
+        {
+          "firm": "FUTUCA",
+          "filter_market": "HK",
+          "acc_id": "[REDACTED]",
+          "trd_env": "SIMULATE",
+          "acc_type": "CASH",
+          "card_num": "[REDACTED]",
+          "security_firm": "N/A",
+          "sim_acc_type": "STOCK",
+          "trdmarket_auth": [
+            "HK"
+          ],
+          "uni_card_num": "[REDACTED]"
+        }
+      ]
+    }
+  ],
+  "utc": "2026-09-15T08:23:16.414974+00:00",
+  "host": "127.0.0.1",
+  "port": 11111,
+  "python": "3.12.3",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "sdk_version": "10.07.6708",
+  "accounts_found": [
+    {
+      "firm": "FUTUSECURITIES",
+      "filter_market": "US",
+      "trd_env": "SIMULATE",
+      "acc_type": "MARGIN",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK_AND_OPTION",
+      "trdmarket_auth": [
+        "US"
+      ]
+    },
+    {
+      "firm": "FUTUSECURITIES",
+      "filter_market": "HK",
+      "trd_env": "SIMULATE",
+      "acc_type": "CASH",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK",
+      "trdmarket_auth": [
+        "HK"
+      ]
+    },
+    {
+      "firm": "FUTUINC",
+      "filter_market": "US",
+      "trd_env": "SIMULATE",
+      "acc_type": "MARGIN",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK_AND_OPTION",
+      "trdmarket_auth": [
+        "US"
+      ]
+    },
+    {
+      "firm": "FUTUINC",
+      "filter_market": "HK",
+      "trd_env": "SIMULATE",
+      "acc_type": "CASH",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK",
+      "trdmarket_auth": [
+        "HK"
+      ]
+    },
+    {
+      "firm": "FUTUSG",
+      "filter_market": "US",
+      "trd_env": "REAL",
+      "acc_type": "MARGIN",
+      "security_firm": "FUTUSG",
+      "sim_acc_type": "N/A",
+      "trdmarket_auth": [
+        "HK",
+        "US",
+        "HKCC",
+        "SG",
+        "HKFUND",
+        "SGFUND",
+        "USFUND",
+        "JP"
+      ]
+    },
+    {
+      "firm": "FUTUSG",
+      "filter_market": "US",
+      "trd_env": "SIMULATE",
+      "acc_type": "MARGIN",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK_AND_OPTION",
+      "trdmarket_auth": [
+        "US"
+      ]
+    },
+    {
+      "firm": "FUTUSG",
+      "filter_market": "HK",
+      "trd_env": "REAL",
+      "acc_type": "MARGIN",
+      "security_firm": "FUTUSG",
+      "sim_acc_type": "N/A",
+      "trdmarket_auth": [
+        "HK",
+        "US",
+        "HKCC",
+        "SG",
+        "HKFUND",
+        "SGFUND",
+        "USFUND",
+        "JP"
+      ]
+    },
+    {
+      "firm": "FUTUSG",
+      "filter_market": "HK",
+      "trd_env": "SIMULATE",
+      "acc_type": "CASH",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK",
+      "trdmarket_auth": [
+        "HK"
+      ]
+    },
+    {
+      "firm": "FUTUSG",
+      "filter_market": "SG",
+      "trd_env": "REAL",
+      "acc_type": "MARGIN",
+      "security_firm": "FUTUSG",
+      "sim_acc_type": "N/A",
+      "trdmarket_auth": [
+        "HK",
+        "US",
+        "HKCC",
+        "SG",
+        "HKFUND",
+        "SGFUND",
+        "USFUND",
+        "JP"
+      ]
+    },
+    {
+      "firm": "FUTUAU",
+      "filter_market": "US",
+      "trd_env": "SIMULATE",
+      "acc_type": "MARGIN",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK_AND_OPTION",
+      "trdmarket_auth": [
+        "US"
+      ]
+    },
+    {
+      "firm": "FUTUAU",
+      "filter_market": "HK",
+      "trd_env": "SIMULATE",
+      "acc_type": "CASH",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK",
+      "trdmarket_auth": [
+        "HK"
+      ]
+    },
+    {
+      "firm": "FUTUJP",
+      "filter_market": "US",
+      "trd_env": "SIMULATE",
+      "acc_type": "MARGIN",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK_AND_OPTION",
+      "trdmarket_auth": [
+        "US"
+      ]
+    },
+    {
+      "firm": "FUTUJP",
+      "filter_market": "HK",
+      "trd_env": "SIMULATE",
+      "acc_type": "CASH",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK",
+      "trdmarket_auth": [
+        "HK"
+      ]
+    },
+    {
+      "firm": "FUTUMY",
+      "filter_market": "US",
+      "trd_env": "SIMULATE",
+      "acc_type": "MARGIN",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK_AND_OPTION",
+      "trdmarket_auth": [
+        "US"
+      ]
+    },
+    {
+      "firm": "FUTUMY",
+      "filter_market": "HK",
+      "trd_env": "SIMULATE",
+      "acc_type": "CASH",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK",
+      "trdmarket_auth": [
+        "HK"
+      ]
+    },
+    {
+      "firm": "FUTUCA",
+      "filter_market": "US",
+      "trd_env": "SIMULATE",
+      "acc_type": "MARGIN",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK_AND_OPTION",
+      "trdmarket_auth": [
+        "US"
+      ]
+    },
+    {
+      "firm": "FUTUCA",
+      "filter_market": "HK",
+      "trd_env": "SIMULATE",
+      "acc_type": "CASH",
+      "security_firm": "N/A",
+      "sim_acc_type": "STOCK",
+      "trdmarket_auth": [
+        "HK"
+      ]
+    }
+  ],
+  "_redaction": "Account identifiers, balances, positions and researched-symbol history removed. Raw logs are retained locally and are git-ignored.",
+  "_source_log": "probe_20260915T082316414974+0000.json"
+}
