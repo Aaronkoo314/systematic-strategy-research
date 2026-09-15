@@ -1,9 +1,19 @@
 """Session-aware 5-minute bar series with structural look-ahead prevention.
 
 The central design decision: a strategy is never handed the full price array. It is
-handed `history_upto(i)`, a read-only view ending at bar i. It cannot peek forward
-because the future is not in the object it receives. Tests confirm the property, but
-the property does not depend on the tests.
+handed `history_upto(i)`, an OWNED read-only COPY ending at bar i, so the future is
+not reachable from the object it receives.
+
+This was originally implemented with numpy slices, which was wrong and is worth
+recording. A slice shares its parent's buffer, so `arr[:j].base` exposed the entire
+156,324-bar block - and `as_strided` read straight past the slice end into real future
+prices. An adversarial review built an oracle strategy on that hole and produced a
+631x annual return while passing all 49 tests, because the tests only checked that the
+returned timestamps did not intersect the future and never touched `.base`.
+
+The lesson: `writeable=False` prevents accidental writes. It was never a look-ahead
+boundary, and treating it as one gave false assurance. Ownership is the boundary -
+every array handed out must satisfy `base is None` and `flags.owndata`.
 
 Verified conventions (docs/intraday_data.md):
   - time_key is the bar CLOSE. The first session bar is 09:35 and covers 09:30-09:35.
@@ -60,24 +70,40 @@ class BarSeries:
             raise ValueError(f"missing columns: {sorted(missing)}")
 
         df = df.sort_values("time_key").reset_index(drop=True)
-        self.time_key = df["time_key"].to_numpy(dtype=object)
+
+        # copy=True is load-bearing, not defensive style. to_numpy() does NOT copy when
+        # the dtype already matches, so these would otherwise be views into one pandas
+        # block and `self.close.base` would be the whole (6, N) array.
+        self.time_key = np.array(df["time_key"].to_numpy(dtype=object), dtype=object, copy=True)
         self.date = np.array([t[:10] for t in self.time_key], dtype=object)
         self.hm = np.array([t[11:16] for t in self.time_key], dtype=object)
-        self.open = df["open"].to_numpy(dtype=float)
-        self.high = df["high"].to_numpy(dtype=float)
-        self.low = df["low"].to_numpy(dtype=float)
-        self.close = df["close"].to_numpy(dtype=float)
-        self.volume = df["volume"].to_numpy(dtype=float)
+        self.open = np.array(df["open"].to_numpy(dtype=float), dtype=float, copy=True)
+        self.high = np.array(df["high"].to_numpy(dtype=float), dtype=float, copy=True)
+        self.low = np.array(df["low"].to_numpy(dtype=float), dtype=float, copy=True)
+        self.close = np.array(df["close"].to_numpy(dtype=float), dtype=float, copy=True)
+        self.volume = np.array(df["volume"].to_numpy(dtype=float), dtype=float, copy=True)
 
-        for a in (self.open, self.high, self.low, self.close, self.volume):
+        for name, a in self._arrays().items():
+            if a.base is not None:
+                raise RuntimeError(
+                    f"{name} does not own its memory - it would leak the full series")
             a.flags.writeable = False
 
         self._sessions: list[Session] = []
         self._session_of = np.empty(len(self.time_key), dtype=int)
         self._build_sessions()
+        self._session_of.flags.writeable = False   # was mutable; writing it corrupted lookups
 
         if validate:
             self.validate()
+
+    def _arrays(self) -> dict:
+        """Every array handed out or held. time_key/date/hm were originally left
+        writeable, which let a strategy write through a 'read-only' view into the
+        master series."""
+        return {"time_key": self.time_key, "date": self.date, "hm": self.hm,
+                "open": self.open, "high": self.high, "low": self.low,
+                "close": self.close, "volume": self.volume}
 
     def __len__(self) -> int:
         return len(self.time_key)
@@ -116,21 +142,24 @@ class BarSeries:
     def history_upto(self, i: int) -> dict:
         """Everything knowable at the close of bar i - and nothing else.
 
-        Returns read-only views ending at i inclusive. There is no path from this
-        object to bar i+1, which is what makes look-ahead structurally impossible
-        rather than merely discouraged.
+        Returns OWNED read-only copies ending at i inclusive. Copies, not slices: a
+        slice shares the parent buffer, so `.base` and `as_strided` both reach real
+        future prices. Each returned array satisfies `base is None` and `owndata`,
+        which is what actually makes the future unreachable.
+
+        The copy costs O(i) per call. That is the price of the guarantee; a caller that
+        needs speed should hold its own incremental state rather than be handed a view.
         """
         self._check_index(i)
         j = i + 1
-        return {
-            "time_key": self.time_key[:j],
-            "open": self.open[:j],
-            "high": self.high[:j],
-            "low": self.low[:j],
-            "close": self.close[:j],
-            "volume": self.volume[:j],
-            "n": j,
-        }
+        out = {}
+        for name, a in self._arrays().items():
+            c = a[:j].copy()
+            assert c.base is None and c.flags.owndata, f"{name} copy still shares memory"
+            c.flags.writeable = False
+            out[name] = c
+        out["n"] = j
+        return out
 
     def next_executable_index(self, signal_i: int) -> int | None:
         """Earliest bar a signal from `signal_i` may fill on.
