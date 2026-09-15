@@ -113,8 +113,19 @@ def max_round_trips_per_year(capital: float, price: float, cost_ceiling_rate: fl
     """How many round trips a fee budget allows.
 
     The operator set an annual fee ceiling of 10 % of the trading portfolio on
-    2026-09-15. This is the hard turnover limit the strategy must respect; it is
-    enforced as a pre-trade risk control, not left to the signal to respect.
+    2026-09-15.
+
+    NOT ENFORCED ANYWHERE. This function computes a number; nothing consumes it.
+    There is no counter, no throttle and no rejection path - the execution layer
+    does not exist yet. An earlier version of this docstring said the ceiling was
+    "enforced as a pre-trade risk control", which was false and was flagged by
+    adversarial review: a reader would have taken the turnover constraint as solved
+    and never implemented it. Mentioning a control is not having one.
+
+    To enforce it, the execution layer must keep a rolling 12-month total of fees
+    actually paid, estimate this order's cost before sending, and refuse when
+    running_total + this_order > capital * ceiling - with a test that submits the
+    408th round trip and asserts it is rejected.
     """
     shares = int(capital // price)
     if shares < 1:
