@@ -1,0 +1,73 @@
+{
+  "utc": "2026-09-15T10:45:54.984481+00:00",
+  "instruments": {
+    "US.QQQ": {
+      "bars": 5037,
+      "segments": 83,
+      "worst_rel_residual": 2.7602122042899038e-11,
+      "segments_resid_gt_1e6": 0,
+      "affine_holds": true,
+      "data_window_start": "2006-09-01",
+      "first_dividend_on_record": "2006-09-15",
+      "uncovered_span_years": 0.04,
+      "n_ex_dates_in_window": 82,
+      "segment_sample": [
+        {
+          "start": "2006-09-01",
+          "n": 9,
+          "A": 0.8578276982,
+          "B": -0.7313834224,
+          "max_rel_resid": 1.3668282334262296e-11
+        },
+        {
+          "start": "2006-09-15",
+          "n": 64,
+          "A": 0.858329947,
+          "B": -0.7313834145,
+          "max_rel_resid": 1.4344559110144343e-11
+        },
+        {
+          "start": "2006-12-15",
+          "n": 60,
+          "A": 0.859385344,
+          "B": -0.731383415,
+          "max_rel_resid": 1.2957549743895913e-11
+        }
+      ]
+    },
+    "US.SPY": {
+      "bars": 5014,
+      "segments": 49,
+      "worst_rel_residual": 8.0922293698558e-12,
+      "segments_resid_gt_1e6": 0,
+      "affine_holds": true,
+      "data_window_start": "2006-09-01",
+      "first_dividend_on_record": "2014-06-20",
+      "uncovered_span_years": 7.8,
+      "n_ex_dates_in_window": 48,
+      "segment_sample": [
+        {
+          "start": "2006-09-01",
+          "n": 1939,
+          "A": 0.817987298,
+          "B": -5e-10,
+          "max_rel_resid": 8.0922293698558e-12
+        },
+        {
+          "start": "2014-06-20",
+          "n": 63,
+          "A": 0.821905615,
+          "B": -2e-10,
+          "max_rel_resid": 3.132467983539488e-12
+        },
+        {
+          "start": "2014-09-19",
+          "n": 64,
+          "A": 0.825748319,
+          "B": 1e-09,
+          "max_rel_resid": 3.582554933243972e-12
+        }
+      ]
+    }
+  }
+}

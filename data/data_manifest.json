@@ -1,0 +1,333 @@
+{
+  "generated_utc": "2026-09-15T10:35:41.392457+00:00",
+  "source": "moomoo OpenAPI via local OpenD",
+  "sdk_version": "10.07.6708",
+  "timezone_note": "time_key is US Eastern session date as returned by the API",
+  "end_requested": "2026-09-12",
+  "instruments": {
+    "US.QQQ": {
+      "rows": 5037,
+      "first_bar": "2006-09-01 00:00:00",
+      "last_bar": "2026-09-11 00:00:00",
+      "years": 20.03,
+      "adjustment": {
+        "ratio_first": 0.83911267,
+        "ratio_last": 1.0,
+        "n_steps_gt_1bp": 1117,
+        "steps_per_year": 55.77,
+        "verdict": "LIKELY_INCLUDES_DIVIDENDS",
+        "example_steps": [
+          {
+            "date": "2006-09-05",
+            "raw_close": 39.46,
+            "qfq_close": 33.1185,
+            "ratio": 0.839293
+          },
+          {
+            "date": "2006-09-06",
+            "raw_close": 38.67,
+            "qfq_close": 32.4408,
+            "ratio": 0.838914
+          },
+          {
+            "date": "2006-09-08",
+            "raw_close": 38.72,
+            "qfq_close": 32.4837,
+            "ratio": 0.838939
+          },
+          {
+            "date": "2006-09-11",
+            "raw_close": 38.96,
+            "qfq_close": 32.6896,
+            "ratio": 0.839055
+          }
+        ]
+      },
+      "calendar": {
+        "expected_sessions": 2511,
+        "missing_sessions": 0,
+        "missing_examples": []
+      },
+      "file": "data/raw/US_QQQ_daily.csv",
+      "sha256": "f9aa39cf9c2580d00b91cc6f268557aacbcf0eb4b3afd4742b190eedd9375878"
+    },
+    "US.SPY": {
+      "rows": 5014,
+      "first_bar": "2006-09-01 00:00:00",
+      "last_bar": "2026-09-11 00:00:00",
+      "years": 20.03,
+      "adjustment": {
+        "ratio_first": 0.8179873,
+        "ratio_last": 1.0,
+        "n_steps_gt_1bp": 48,
+        "steps_per_year": 2.4,
+        "verdict": "SPLITS_ONLY_OR_SPARSE",
+        "example_steps": [
+          {
+            "date": "2014-06-20",
+            "raw_close": 195.94,
+            "qfq_close": 161.0442,
+            "ratio": 0.821906
+          },
+          {
+            "date": "2014-09-19",
+            "raw_close": 200.72,
+            "qfq_close": 165.7442,
+            "ratio": 0.825748
+          },
+          {
+            "date": "2014-12-19",
+            "raw_close": 206.62,
+            "qfq_close": 171.5577,
+            "ratio": 0.830305
+          },
+          {
+            "date": "2015-03-20",
+            "raw_close": 210.41,
+            "qfq_close": 175.4843,
+            "ratio": 0.834011
+          }
+        ]
+      },
+      "calendar": {
+        "expected_sessions": 2511,
+        "missing_sessions": 0,
+        "missing_examples": []
+      },
+      "file": "data/raw/US_SPY_daily.csv",
+      "sha256": "38b62450a99665259b43e6a4eeb6b9039f893b9820d6cbe2ed7209bb68ba4787"
+    },
+    "US.BIL": {
+      "rows": 3692,
+      "first_bar": "2012-01-03 00:00:00",
+      "last_bar": "2026-09-11 00:00:00",
+      "years": 14.69,
+      "adjustment": {
+        "ratio_first": 1.58960818,
+        "ratio_last": 1.0,
+        "n_steps_gt_1bp": 95,
+        "steps_per_year": 6.47,
+        "verdict": "LIKELY_INCLUDES_DIVIDENDS",
+        "example_steps": [
+          {
+            "date": "2012-12-27",
+            "raw_close": 45.82,
+            "qfq_close": 73.2942,
+            "ratio": 1.599611
+          },
+          {
+            "date": "2016-12-01",
+            "raw_close": 45.72,
+            "qfq_close": 73.1675,
+            "ratio": 1.600338
+          },
+          {
+            "date": "2016-12-28",
+            "raw_close": 45.71,
+            "qfq_close": 73.1664,
+            "ratio": 1.600666
+          },
+          {
+            "date": "2017-02-01",
+            "raw_close": 45.71,
+            "qfq_close": 73.1866,
+            "ratio": 1.601107
+          }
+        ]
+      },
+      "calendar": {
+        "expected_sessions": 2511,
+        "missing_sessions": 0,
+        "missing_examples": []
+      },
+      "file": "data/raw/US_BIL_daily.csv",
+      "sha256": "a5f7ad3fc7c18fb3e7c1fa044356aa015f2d0ed86ba9a9f8619b003bfe699ec7"
+    },
+    "US.SHY": {
+      "rows": 5037,
+      "first_bar": "2006-09-01 00:00:00",
+      "last_bar": "2026-09-11 00:00:00",
+      "years": 20.03,
+      "adjustment": {
+        "ratio_first": 0.69781645,
+        "ratio_last": 1.0,
+        "n_steps_gt_1bp": 240,
+        "steps_per_year": 11.98,
+        "verdict": "LIKELY_INCLUDES_DIVIDENDS",
+        "example_steps": [
+          {
+            "date": "2006-10-02",
+            "raw_close": 80.11,
+            "qfq_close": 56.1087,
+            "ratio": 0.700396
+          },
+          {
+            "date": "2006-11-01",
+            "raw_close": 80.11,
+            "qfq_close": 56.3179,
+            "ratio": 0.703007
+          },
+          {
+            "date": "2006-12-01",
+            "raw_close": 80.31,
+            "qfq_close": 56.6619,
+            "ratio": 0.70554
+          },
+          {
+            "date": "2006-12-27",
+            "raw_close": 79.99,
+            "qfq_close": 56.6092,
+            "ratio": 0.707703
+          }
+        ]
+      },
+      "calendar": {
+        "expected_sessions": 2511,
+        "missing_sessions": 0,
+        "missing_examples": []
+      },
+      "file": "data/raw/US_SHY_daily.csv",
+      "sha256": "3ebc9613d626c31e515a70bba346289539e0b7f17f395a8e21a9215058b13e66"
+    },
+    "US.IEF": {
+      "rows": 5037,
+      "first_bar": "2006-09-01 00:00:00",
+      "last_bar": "2026-09-11 00:00:00",
+      "years": 20.03,
+      "adjustment": {
+        "ratio_first": 0.59588851,
+        "ratio_last": 1.0,
+        "n_steps_gt_1bp": 240,
+        "steps_per_year": 11.98,
+        "verdict": "LIKELY_INCLUDES_DIVIDENDS",
+        "example_steps": [
+          {
+            "date": "2006-10-02",
+            "raw_close": 82.97,
+            "qfq_close": 49.6329,
+            "ratio": 0.598203
+          },
+          {
+            "date": "2006-11-01",
+            "raw_close": 83.22,
+            "qfq_close": 49.9693,
+            "ratio": 0.600448
+          },
+          {
+            "date": "2006-12-01",
+            "raw_close": 83.94,
+            "qfq_close": 50.5881,
+            "ratio": 0.60267
+          },
+          {
+            "date": "2006-12-27",
+            "raw_close": 82.67,
+            "qfq_close": 49.963,
+            "ratio": 0.604367
+          }
+        ]
+      },
+      "calendar": {
+        "expected_sessions": 2511,
+        "missing_sessions": 0,
+        "missing_examples": []
+      },
+      "file": "data/raw/US_IEF_daily.csv",
+      "sha256": "b52b405271efda4297aad06797f798a1682393c7bed8315ce3351c9c64a0fc3c"
+    },
+    "US.TLT": {
+      "rows": 5037,
+      "first_bar": "2006-09-01 00:00:00",
+      "last_bar": "2026-09-11 00:00:00",
+      "years": 20.03,
+      "adjustment": {
+        "ratio_first": 0.52878378,
+        "ratio_last": 1.0,
+        "n_steps_gt_1bp": 250,
+        "steps_per_year": 12.48,
+        "verdict": "LIKELY_INCLUDES_DIVIDENDS",
+        "example_steps": [
+          {
+            "date": "2006-10-02",
+            "raw_close": 89.3,
+            "qfq_close": 47.4143,
+            "ratio": 0.530955
+          },
+          {
+            "date": "2006-11-01",
+            "raw_close": 89.96,
+            "qfq_close": 47.9525,
+            "ratio": 0.533042
+          },
+          {
+            "date": "2006-12-01",
+            "raw_close": 91.42,
+            "qfq_close": 48.9194,
+            "ratio": 0.535107
+          },
+          {
+            "date": "2006-12-27",
+            "raw_close": 88.7,
+            "qfq_close": 47.6169,
+            "ratio": 0.536831
+          }
+        ]
+      },
+      "calendar": {
+        "expected_sessions": 2511,
+        "missing_sessions": 0,
+        "missing_examples": []
+      },
+      "file": "data/raw/US_TLT_daily.csv",
+      "sha256": "5b9c6f8343a27106fe2259101af734947d840a2293836e3a864f731e0bd3c5dc"
+    },
+    "US.AGG": {
+      "rows": 3691,
+      "first_bar": "2012-01-03 00:00:00",
+      "last_bar": "2026-09-11 00:00:00",
+      "years": 14.69,
+      "adjustment": {
+        "ratio_first": 0.71327328,
+        "ratio_last": 1.0,
+        "n_steps_gt_1bp": 149,
+        "steps_per_year": 10.14,
+        "verdict": "LIKELY_INCLUDES_DIVIDENDS",
+        "example_steps": [
+          {
+            "date": "2014-07-01",
+            "raw_close": 109.07,
+            "qfq_close": 77.9339,
+            "ratio": 0.714531
+          },
+          {
+            "date": "2014-08-01",
+            "raw_close": 109.14,
+            "qfq_close": 78.1281,
+            "ratio": 0.715852
+          },
+          {
+            "date": "2014-09-02",
+            "raw_close": 109.45,
+            "qfq_close": 78.4904,
+            "ratio": 0.717135
+          },
+          {
+            "date": "2014-10-01",
+            "raw_close": 109.53,
+            "qfq_close": 78.6848,
+            "ratio": 0.718386
+          }
+        ]
+      },
+      "calendar": {
+        "expected_sessions": 2511,
+        "missing_sessions": 0,
+        "missing_examples": []
+      },
+      "file": "data/raw/US_AGG_daily.csv",
+      "sha256": "1836dba5665e0027cb30f0f89e143cc38e212a885c51cd10dc821b9abaabc5ae"
+    }
+  },
+  "quota_before": "(9, 291, [])",
+  "quota_after": "(13, 287, [])"
+}
