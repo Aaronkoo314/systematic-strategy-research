@@ -1,0 +1,63 @@
+{
+  "utc": "2026-09-15T14:17:36.263203+00:00",
+  "instruments": {
+    "US.QQQ": {
+      "bars": 5037,
+      "first_bar": "2006-09-01",
+      "last_bar": "2026-09-11",
+      "first_dividend_on_record": "2006-09-15",
+      "n_dividends_in_window": 82,
+      "uncovered_span_years": 0.038,
+      "affine_worst_rel_residual": 2.7602122042899038e-11,
+      "verdict": "USABLE"
+    },
+    "US.IEF": {
+      "bars": 5037,
+      "first_bar": "2006-09-01",
+      "last_bar": "2026-09-11",
+      "first_dividend_on_record": "2006-09-01",
+      "n_dividends_in_window": 241,
+      "uncovered_span_years": 0.0,
+      "affine_worst_rel_residual": 1.2411510317470609e-11,
+      "verdict": "USABLE"
+    },
+    "US.TLT": {
+      "bars": 5037,
+      "first_bar": "2006-09-01",
+      "last_bar": "2026-09-11",
+      "first_dividend_on_record": "2006-09-01",
+      "n_dividends_in_window": 241,
+      "uncovered_span_years": 0.0,
+      "affine_worst_rel_residual": 1.4952482870049657e-11,
+      "verdict": "USABLE"
+    },
+    "US.AGG": {
+      "bars": 3691,
+      "first_bar": "2012-01-03",
+      "last_bar": "2026-09-11",
+      "first_dividend_on_record": "2014-07-01",
+      "n_dividends_in_window": 147,
+      "uncovered_span_years": 2.491,
+      "affine_worst_rel_residual": 9.914866863773857e-12,
+      "verdict": "UNUSABLE (2.49y unadjusted)"
+    },
+    "US.SPY": {
+      "bars": 5014,
+      "first_bar": "2006-09-01",
+      "last_bar": "2026-09-11",
+      "first_dividend_on_record": "2014-06-20",
+      "n_dividends_in_window": 48,
+      "uncovered_span_years": 7.8,
+      "affine_worst_rel_residual": 8.0922293698558e-12,
+      "verdict": "UNUSABLE (7.80y unadjusted)"
+    }
+  },
+  "calendar": {
+    "file": "data/us_trading_calendar.csv",
+    "sessions": 5037,
+    "first": "2006-09-01",
+    "last": "2026-09-11",
+    "derived_from": "US.QQQ daily bars",
+    "why": "request_trading_days silently truncates to ~10 years"
+  }
+}

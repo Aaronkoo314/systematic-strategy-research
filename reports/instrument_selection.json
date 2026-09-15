@@ -1,0 +1,113 @@
+{
+  "utc": "2026-09-15T14:13:54.309726+00:00",
+  "window_requested": [
+    "2006-09-01",
+    "2026-09-12"
+  ],
+  "criterion": "dividend record must cover the test window; uncovered span means the adjusted series silently omits distributions",
+  "candidates": {
+    "US.IVV": {
+      "group": "equity_sp500",
+      "available": true,
+      "bars": 3691,
+      "first_bar": "2012-01-03",
+      "last_bar": "2026-09-11",
+      "years": 14.69,
+      "first_dividend_on_record": "2014-06-24",
+      "n_dividends_in_window": 51,
+      "uncovered_span_years": 2.472,
+      "affine_worst_rel_residual": 4.690147919524313e-12,
+      "verdict": "UNUSABLE_FOR_TOTAL_RETURN (2.47y unadjusted)"
+    },
+    "US.VOO": {
+      "group": "equity_sp500",
+      "available": true,
+      "bars": 3692,
+      "first_bar": "2012-01-03",
+      "last_bar": "2026-09-11",
+      "years": 14.69,
+      "first_dividend_on_record": "2013-10-24",
+      "n_dividends_in_window": 50,
+      "uncovered_span_years": 1.807,
+      "affine_worst_rel_residual": 4.960424778699066e-12,
+      "verdict": "UNUSABLE_FOR_TOTAL_RETURN (1.81y unadjusted)"
+    },
+    "US.SPLG": {
+      "group": "equity_sp500",
+      "available": false,
+      "error": "\u672a\u77e5\u80a1\u7968 SPLG"
+    },
+    "US.QQQ": {
+      "group": "equity_nasdaq",
+      "available": false,
+      "error": "NN_ProtoRet_TimeOut"
+    },
+    "US.QQQM": {
+      "group": "equity_nasdaq",
+      "available": true,
+      "bars": 1485,
+      "first_bar": "2020-10-13",
+      "last_bar": "2026-09-11",
+      "years": 5.91,
+      "first_dividend_on_record": "2020-12-21",
+      "n_dividends_in_window": 23,
+      "uncovered_span_years": 0.189,
+      "affine_worst_rel_residual": 5.1432322491604934e-12,
+      "verdict": "USABLE"
+    },
+    "US.BIL": {
+      "group": "cash_leg",
+      "available": true,
+      "bars": 3692,
+      "first_bar": "2012-01-03",
+      "last_bar": "2026-09-11",
+      "years": 14.69,
+      "first_dividend_on_record": "2012-12-27",
+      "n_dividends_in_window": 96,
+      "uncovered_span_years": 0.983,
+      "affine_worst_rel_residual": 1.0156256740556985e-11,
+      "verdict": "UNUSABLE_FOR_TOTAL_RETURN (0.98y unadjusted)"
+    },
+    "US.SHV": {
+      "group": "cash_leg",
+      "available": true,
+      "bars": 4948,
+      "first_bar": "2007-01-11",
+      "last_bar": "2026-09-11",
+      "years": 19.67,
+      "first_dividend_on_record": "2007-02-01",
+      "n_dividends_in_window": 187,
+      "uncovered_span_years": 0.057,
+      "affine_worst_rel_residual": 8.915747244780118e-12,
+      "verdict": "USABLE"
+    },
+    "US.SGOV": {
+      "group": "cash_leg",
+      "available": true,
+      "bars": 1581,
+      "first_bar": "2020-05-28",
+      "last_bar": "2026-09-11",
+      "years": 6.29,
+      "first_dividend_on_record": "2020-07-01",
+      "n_dividends_in_window": 74,
+      "uncovered_span_years": 0.093,
+      "affine_worst_rel_residual": 8.613453731904477e-12,
+      "verdict": "USABLE"
+    },
+    "US.SHY": {
+      "group": "cash_leg",
+      "available": true,
+      "bars": 5037,
+      "first_bar": "2006-09-01",
+      "last_bar": "2026-09-11",
+      "years": 20.03,
+      "first_dividend_on_record": "2006-09-01",
+      "n_dividends_in_window": 241,
+      "uncovered_span_years": 0.0,
+      "affine_worst_rel_residual": 1.3217421087965367e-11,
+      "verdict": "USABLE"
+    }
+  },
+  "quota_before": "(13, 287, [])",
+  "quota_after": "(18, 282, [])"
+}
