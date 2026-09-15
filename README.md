@@ -9,6 +9,9 @@
 ```
 docs/investment_mandate.md   Draft mandate: confirmed / provisional / unresolved (NOT approved)
 docs/feasibility.md          Verified feasibility report with sources and verification dates
+docs/selection_criteria.md   Stage B criteria, frozen before any candidate existed
+docs/candidate_comparison.md Stage B verdict: all three candidates rejected
+docs/data_sources.md         Data source evaluation: six of seven eliminated on licence or access
 tools/probe_readonly.py      Read-only OpenD probe: connectivity, accounts, history quota
 tools/probe_quotes.py        Read-only probe: market-data entitlement, account + position snapshot
 tests/test_probe_is_readonly.py  Proves the probes contain no order/unlock calls
@@ -51,7 +54,10 @@ or token is read, requested, or stored anywhere in this project.
 
 - **Every order is manually confirmed by the operator.** This system is **not unattended** and must
   never be described as such. No trading password is held by any background process.
-- Other holdings in the same account are outside this project's authority.
+- The trading portfolio shares a margin account with other holdings over which this project has
+  no authority. See `investment_mandate.md` §7b for what that sharing does to the trading
+  portfolio — including the finding that **the 20 % abandon point is not enforceable in
+  trading-portfolio terms**.
 - **No account balances, positions or identifiers are committed to this repository.** Raw probe
   logs are git-ignored; `logs/redacted/` holds capability-only copies produced by
   `tools/redact_logs.py`.
@@ -61,8 +67,8 @@ or token is read, requested, or stored anywhere in this project.
 
 | Stage | Description | Status |
 |---|---|---|
-| A | Mandate + feasibility | **in review — 4 of 8 questions answered 2026-09-15** |
-| B | Strategy selection + frozen, preregistered research design | blocked on A |
-| C | Implementation + historical validation + critical review | blocked on B |
+| A | Mandate + feasibility | complete |
+| B | Strategy selection + frozen, preregistered research design | **NO CANDIDATE SELECTED** — all three rejected, 9/9 adversarial reviews fatal. See `candidate_comparison.md` |
+| C | Implementation + historical validation + critical review | **NOT ENTERED** — blocked on the P0 account-isolation decision |
 | D | Paper trading + operational validation (≥ 60 trading days) | blocked on C |
 | E | Small-capital live pilot — **requires explicit written approval** | blocked on D |
