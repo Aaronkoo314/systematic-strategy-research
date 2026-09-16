@@ -1,0 +1,3 @@
+signal_i,exec_i,time_key,side,shares,ref_price,fill_price,slippage_cost,fees,fee_breakdown,overnight,nav_after
+1,2,2018-09-10 09:45:00,buy,55,181.46,181.483146,1.27303,1.2591150000000002,"{'commission': 0.0, 'platform': 1.0791000000000002, 'settlement': 0.17985, 'sec': 0.0, 'taf': 0.0, 'cat': 0.000165, 'total': 1.2591150000000002}",False,10002.417855
+78726,78727,2022-09-19 09:40:00,buy,1,287.54,287.573754,0.033754,1.0823730000000003,"{'commission': 0.0, 'platform': 1.0791000000000002, 'settlement': 0.0032700000000000003, 'sec': 0.0, 'taf': 0.0, 'cat': 3e-06, 'total': 1.0823730000000003}",False,16101.840762999997

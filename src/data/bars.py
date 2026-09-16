@@ -160,7 +160,7 @@ class BarSeries:
         if i < 0 or i >= len(self.time_key):
             raise IndexError(f"index {i} out of range 0..{len(self.time_key) - 1}")
 
-    def history_upto(self, i: int) -> dict:
+    def history_upto(self, i: int, lookback: int | None = None) -> dict:
         """Everything knowable at the close of bar i - and nothing else.
 
         Returns OWNED read-only copies ending at i inclusive. Copies, not slices: a
@@ -168,21 +168,32 @@ class BarSeries:
         future prices. Each returned array satisfies `base is None` and `owndata`,
         which is what actually makes the future unreachable.
 
-        The copy costs O(i) per call. That is the price of the guarantee; a caller that
-        needs speed should hold its own incremental state rather than be handed a view.
+        `lookback` bounds the window to the last N bars. Without it the copy costs O(i)
+        per call and a full pass over 156,324 bars is O(n^2) - measured as unusably slow,
+        which is how the bound came to be required rather than merely offered. It is also
+        the better discipline: a strategy that must declare its lookback has fewer
+        degrees of freedom than one that may reach back arbitrarily far.
+
+        `n` is the absolute bar count through i; `window` is the length actually handed
+        over. They differ whenever the lookback bites.
         """
         self._check_index(i)
+        if lookback is not None:
+            if not isinstance(lookback, (int, np.integer)) or lookback < 1:
+                raise ValueError(f"lookback must be a positive int, got {lookback!r}")
         j = i + 1
+        lo = 0 if lookback is None else max(0, j - int(lookback))
         out = {}
         for name, a in self._arrays().items():
-            c = a[:j].copy()
+            c = a[lo:j].copy()
             assert c.base is None and c.flags.owndata, f"{name} copy still shares memory"
             c.flags.writeable = False
             out[name] = c
         lens = {k: len(v) for k, v in out.items()}
-        if set(lens.values()) != {j}:
+        if len(set(lens.values())) != 1:
             raise RuntimeError(f"history_upto lengths disagree: {lens}")
-        out["n"] = j
+        out["n"] = j              # absolute bars through i
+        out["window"] = j - lo    # bars actually handed over
         return out
 
     def next_executable_index(self, signal_i: int) -> int | None:
