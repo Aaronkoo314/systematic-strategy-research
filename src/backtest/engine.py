@@ -46,6 +46,7 @@ import pandas as pd
 
 from src.costs.fees import FeeSchedule, order_cost
 from src.data.bars import BarSeries, NotFillableError
+from src.risk.controls import RiskManager
 
 
 class Strategy(Protocol):
@@ -113,6 +114,7 @@ class BacktestResult:
     dividends: pd.DataFrame
     rejected: list = field(default_factory=list)
     summary: dict = field(default_factory=dict)
+    risk_blocked: list = field(default_factory=list)
 
 
 class Backtester:
@@ -121,7 +123,9 @@ class Backtester:
                  fees: FeeSchedule = FeeSchedule(),
                  dividends: pd.DataFrame | None = None,
                  max_orders: int | None = None,
-                 lookback: int = 500):
+                 lookback: int = 500,
+                 risk: RiskManager | None = None,
+                 bypass_risk_controls: bool = False):
         if initial_cash <= 0:
             raise ValueError("initial_cash must be positive")
         self.bars = bars
@@ -135,6 +139,13 @@ class Backtester:
         if not isinstance(lookback, int) or lookback < 1:
             raise ValueError(f"lookback must be a positive int, got {lookback!r}")
         self.lookback = lookback
+
+        # There is deliberately no way to run unguarded by accident. Passing None
+        # yields the mandate defaults; skipping the controls requires naming the
+        # bypass explicitly, and it is recorded in the summary so a result produced
+        # without risk controls can never be mistaken for one produced with them.
+        self.risk = risk or RiskManager()
+        self.bypass_risk_controls = bool(bypass_risk_controls)
 
         # ex_date -> net cash per share already after withholding
         self.div = {}
@@ -166,10 +177,20 @@ class Backtester:
         eq_i, eq_nav, eq_cash, eq_shares, eq_px = [], [], [], [], []
         paid_dividend_on: set[str] = set()
         orders_placed = 0
+        risk_blocked: list[dict] = []
+        seen_dates: set[str] = set()
 
         for i in range(start, end):
             price = float(bars.close[i])
             state.last_price = price
+            d_now = str(bars.date[i])
+            if d_now not in seen_dates:
+                seen_dates.add(d_now)
+                self.risk.start_session(d_now)
+
+            # Observed on EVERY bar, trading or not: a drawdown breach has to be
+            # detected while sitting still, not only when an order is contemplated.
+            self.risk.observe(state.nav(price), d_now)
 
             # --- dividends: credited once, on the first bar of the ex-date, to shares
             #     held at that moment. Raw prices, so this is the only place a
@@ -198,9 +219,14 @@ class Backtester:
                             rejected.append({"signal_i": i, "reason": "order budget exhausted",
                                              "wanted_delta": delta})
                         else:
-                            ok = self._execute(state, i, exec_i, delta, fills, rejected)
-                            if ok:
-                                orders_placed += 1
+                            want = self._risk_gate(i, d_now, nav, price, state,
+                                                   want, risk_blocked)
+                            delta = want - state.shares
+                            if delta != 0:
+                                ok = self._execute(state, i, exec_i, delta,
+                                                   fills, rejected, d_now)
+                                if ok:
+                                    orders_placed += 1
 
             eq_i.append(i)
             eq_nav.append(state.nav(price))
@@ -220,15 +246,59 @@ class Backtester:
 
         fills_df = pd.DataFrame([f.__dict__ for f in fills]) if fills else pd.DataFrame(
             columns=[k for k in Fill.__annotations__])
-        return BacktestResult(
+        summary = self._summarise(equity, fills, div_events, rejected)
+        summary["risk_controls"] = ("BYPASSED - this result was produced without "
+                                    "pre-trade risk controls") if self.bypass_risk_controls \
+            else "enforced"
+        summary["n_risk_blocked"] = len(risk_blocked)
+        summary["risk_events"] = list(self.risk.events)
+        summary["halted"] = self.risk.state.halted
+        summary["abandoned"] = self.risk.state.abandoned
+        if self.risk.state.abandoned:
+            summary["abandon_reason"] = self.risk.state.abandon_reason
+        res = BacktestResult(
             equity=equity, fills=fills_df, trades=self._pair_trades(fills),
             dividends=pd.DataFrame(div_events), rejected=rejected,
-            summary=self._summarise(equity, fills, div_events, rejected))
+            summary=summary)
+        res.risk_blocked = risk_blocked
+        return res
 
     # ------------------------------------------------------------------
 
+    def _risk_gate(self, i: int, date: str, nav: float, price: float,
+                   state: PortfolioState, want: int, blocked: list) -> int:
+        """Independent pre-trade gate. Returns the target share count actually allowed.
+
+        A strategy error cannot route around this: the engine calls it, not the
+        strategy, and the only way past it is the explicitly named bypass.
+        """
+        if self.bypass_risk_controls:
+            return want
+        delta = want - state.shares
+        qty = abs(delta)
+        side = "buy" if delta > 0 else "sell"
+        est = order_cost(int(qty), float(price), side, self.fees).total if qty else 0.0
+        prev = float(self.bars.close[i - 1]) if i > 0 else price
+        d = self.risk.check_order(
+            date=date, nav=nav, price=price, prev_price=prev,
+            current_shares=state.shares, target_shares=want, est_fees=est,
+            fingerprint=f"{i}:{side}:{qty}")
+        if d.allowed and d.max_shares is None:
+            return want
+        if d.allowed and d.max_shares is not None:
+            # Use the gate's own number. Re-deriving it here is how the cap leaked
+            # before: the gate sized net of fees and the engine sized gross.
+            blocked.append({"signal_i": i, "date": date, "breach": d.breach,
+                            "reason": d.reason, "wanted": want, "allowed": d.max_shares})
+            return int(d.max_shares)
+        blocked.append({"signal_i": i, "date": date, "breach": d.breach,
+                        "reason": d.reason, "wanted": want,
+                        "allowed": state.shares})
+        return state.shares
+
     def _execute(self, state: PortfolioState, signal_i: int, exec_i: int,
-                 delta: int, fills: list, rejected: list) -> bool:
+                 delta: int, fills: list, rejected: list,
+                 date: str | None = None) -> bool:
         bars, ex = self.bars, self.execution
         side = "buy" if delta > 0 else "sell"
         qty = abs(delta)
@@ -295,6 +365,8 @@ class Backtester:
             state.shares -= qty
 
         state.last_price = float(bars.close[exec_i])
+        if date is not None:
+            self.risk.record_fees(date, float(cost.total))
         fills.append(Fill(
             signal_i=signal_i, exec_i=exec_i, time_key=str(bars.time_key[exec_i]),
             side=side, shares=int(qty), ref_price=float(ref), fill_price=float(px),
