@@ -74,18 +74,22 @@ def test_half_day_ending_at_the_regular_close_is_rejected():
 
 
 def test_half_day_with_a_late_final_bar_is_rejected():
-    """Correctly-started 42-bar session whose last bar is stamped 16:00 - the case the
-    validator's close check exists for."""
+    """42 bars ending at 16:00 is a FULL day with bars missing, not an early close.
+
+    Half-day status is now decided by the closing time rather than the bar count, so
+    this is correctly reported as "closes at 16:00 but has 42 bars, expected 78".
+    Counting bars could not tell a genuine early close from an afternoon data outage,
+    and getting that wrong moves the close by three hours."""
     df = make_session("2024-11-29", HALF_DAY_BARS)
     df.loc[HALF_DAY_BARS - 1, "time_key"] = "2024-11-29 16:00:00"
-    with pytest.raises(ValueError, match="expected 13:00"):
+    with pytest.raises(ValueError, match="expected 78|expected 13:00"):
         BarSeries(df)
 
 
 def test_unexpected_bar_count_rejected():
     """A session with a wrong number of bars is a data defect, not something to smooth over."""
     bad = make_session("2024-01-02", REGULAR_BARS).iloc[:50]
-    with pytest.raises(ValueError, match="unexpected bars-per-session"):
+    with pytest.raises(ValueError, match="expected 78|ends at"):
         BarSeries(bad)
 
 
@@ -170,8 +174,40 @@ def test_no_fill_across_session_boundary():
 def test_fill_price_is_the_open_not_the_close():
     s = make_series()
     i = 12
-    assert s.fill_price(i) == pytest.approx(s.open[i])
-    assert s.fill_price(i) != pytest.approx(s.close[i])
+    exec_i = s.next_executable_index(i)
+    assert s.fill_price(i, exec_i) == pytest.approx(s.open[exec_i])
+    assert s.fill_price(i, exec_i) != pytest.approx(s.close[exec_i])
+
+
+def test_fill_price_rejects_an_index_that_is_not_the_legal_successor():
+    """fill_price previously took one index and was uncoupled from the execution rule,
+    so enforced-in-code was only a comment."""
+    from src.data.bars import LookAheadError
+    s = make_series()
+    i = 12
+    for bad in (i, i + 5, i - 1):
+        with pytest.raises(LookAheadError):
+            s.fill_price(i, bad)
+
+
+def test_fill_price_refuses_a_signal_with_no_legal_successor():
+    from src.data.bars import LookAheadError
+    s = make_series()
+    last = s.sessions[0].end
+    with pytest.raises(LookAheadError):
+        s.fill_price(last, last + 1)
+
+
+def test_zero_volume_bar_is_not_fillable():
+    """Seven such bars exist in the real series, all March 2020 halts."""
+    from src.data.bars import NotFillableError
+    df = make_session("2024-01-02")
+    df.loc[13, "volume"] = 0.0
+    s = BarSeries(df)
+    assert s.is_fillable(13) is False
+    assert s.is_fillable(12) is True
+    with pytest.raises(NotFillableError):
+        s.fill_price(12, 13)
 
 
 # ---------------- flat at close ----------------

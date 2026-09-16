@@ -20,10 +20,18 @@ from dataclasses import dataclass, asdict
 UNMODELLED = (
     "account-level fixed fees (custody / monthly / inactivity / FX) - unverified; "
     "at TP=10,000 even USD 5/month would be 0.60 %/yr, larger than every modelled item",
+    "the NON-PROMOTIONAL rate card - this schedule assumes the zero-commission tier the "
+    "operator currently qualifies for. Eligibility is not permanent and is not checked "
+    "anywhere; on standard rates a round trip is materially more expensive",
+    "GST treatment of the US settlement fee - charged by default here as the "
+    "conservative choice, but moomoo does not state whether it counts as a clearing fee",
     "whether the platform fee is charged per SUBMITTED or per FILLED order - unverified; "
     "if per submitted, an unfilled limit order re-posted the next session is charged twice",
     "bid-ask spread and market impact - modelled separately by the execution model, not here",
-    "borrow, margin interest - not applicable: long-only, unlevered, flat overnight",
+    "borrow, margin interest - long-only and unlevered, but NO LONGER flat overnight "
+    "(operator decision 2026-09-16). A negative cash balance across a night would accrue "
+    "interest; the engine must refuse to place an order that would create one rather "
+    "than rely on this being unmodelled",
 )
 
 
@@ -35,7 +43,16 @@ class FeeSchedule:
     gst_rate: float = 0.09              # on commission / platform / clearing fees
     settlement_per_share: float = 0.003
     settlement_cap_rate: float = 0.01   # capped at 1 % of order value
-    commission: float = 0.0             # zero for eligible SG clients
+    commission: float = 0.0             # zero for ELIGIBLE SG clients only - see below
+
+    # moomoo SG states GST applies to "commission, trading fees, clearing fees and
+    # platform fees". Whether the US settlement fee counts as a clearing fee is not
+    # stated. Defaulting to True charges it - the conservative direction, since an
+    # overstated cost cannot manufacture an edge. Magnitude is small: on 14 QQQ shares
+    # it is 0.042 * 0.09 = USD 0.004 per order. Flagged as unverified rather than
+    # silently decided, because the previous version's own comment claimed clearing
+    # fees were taxed while the code did not tax them.
+    gst_on_settlement: bool = True
 
     # Sell side only
     sec_rate: float = 0.0000206         # x notional
@@ -82,11 +99,17 @@ def order_cost(shares: int, price: float, side: str,
 
     notional = shares * price
 
-    commission = schedule.commission
-    # GST applies to commission and platform fee, not to the regulatory pass-throughs.
-    platform = (schedule.platform_fee + commission) * (1.0 + schedule.gst_rate)
+    gst = 1.0 + schedule.gst_rate
+    # commission and platform are reported SEPARATELY. The previous version folded a
+    # non-zero commission into the platform field and hard-coded commission to 0.0 in
+    # the breakdown, so the promise to report costs by type was false for any client
+    # not on the zero-commission tier.
+    commission = schedule.commission * gst
+    platform = schedule.platform_fee * gst
     settlement = min(shares * schedule.settlement_per_share,
                      notional * schedule.settlement_cap_rate)
+    if schedule.gst_on_settlement:
+        settlement *= gst
     cat = shares * schedule.cat_per_share
 
     if side == "sell":
@@ -96,8 +119,8 @@ def order_cost(shares: int, price: float, side: str,
         sec = 0.0
         taf = 0.0
 
-    total = platform + settlement + sec + taf + cat
-    return CostBreakdown(commission=0.0, platform=platform, settlement=settlement,
+    total = commission + platform + settlement + sec + taf + cat
+    return CostBreakdown(commission=commission, platform=platform, settlement=settlement,
                          sec=sec, taf=taf, cat=cat, total=total)
 
 
@@ -127,6 +150,12 @@ def max_round_trips_per_year(capital: float, price: float, cost_ceiling_rate: fl
     running_total + this_order > capital * ceiling - with a test that submits the
     408th round trip and asserts it is rejected.
     """
+    if not 0.0 < cost_ceiling_rate <= 1.0:
+        raise ValueError(
+            f"cost_ceiling_rate must be a fraction in (0, 1], got {cost_ceiling_rate} - "
+            f"passing 10 instead of 0.10 would silently allow 100x the turnover")
+    if capital <= 0 or price <= 0:
+        raise ValueError(f"capital and price must be positive, got {capital}, {price}")
     shares = int(capital // price)
     if shares < 1:
         raise ValueError(f"capital {capital} cannot buy one share at {price}")

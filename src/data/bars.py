@@ -55,6 +55,10 @@ class LookAheadError(RuntimeError):
     """Raised when code asks for data it cannot legitimately have at decision time."""
 
 
+class NotFillableError(RuntimeError):
+    """Raised when a fill is requested on a bar where no trade could have happened."""
+
+
 @dataclass(frozen=True)
 class Session:
     date: str
@@ -130,8 +134,12 @@ class BarSeries:
         for i in range(1, len(self.date) + 1):
             if i == len(self.date) or self.date[i] != self.date[start]:
                 n = i - start
+                # is_half_day is decided by the CLOSING TIME, not the bar count.
+                # Counting bars cannot tell a genuine early close from an afternoon
+                # data outage, and getting it wrong moves the close by three hours.
                 s = Session(date=str(self.date[start]), start=start, end=i - 1,
-                            n_bars=n, is_half_day=(n == HALF_DAY_BARS))
+                            n_bars=n,
+                            is_half_day=(str(self.hm[i - 1]) == HALF_DAY_LAST_HM))
                 self._sessions.append(s)
                 self._session_of[start:i] = len(self._sessions) - 1
                 start = i
@@ -171,6 +179,9 @@ class BarSeries:
             assert c.base is None and c.flags.owndata, f"{name} copy still shares memory"
             c.flags.writeable = False
             out[name] = c
+        lens = {k: len(v) for k, v in out.items()}
+        if set(lens.values()) != {j}:
+            raise RuntimeError(f"history_upto lengths disagree: {lens}")
         out["n"] = j
         return out
 
@@ -198,14 +209,46 @@ class BarSeries:
         self._check_index(exec_i)
         return bool(self._session_of[exec_i] != self._session_of[signal_i])
 
-    def fill_price(self, exec_i: int) -> float:
-        """A fill happens at the OPEN of the execution bar, never its close.
+    def fill_price(self, signal_i: int, exec_i: int) -> float:
+        """Fill price for a signal from `signal_i` executing on `exec_i`.
 
-        Filling at a bar's close means using the whole bar's information to trade at
-        the end of it - the single easiest way to manufacture an intraday edge.
+        Takes BOTH indices on purpose. The earlier single-argument version accepted any
+        index and was not coupled to next_executable_index at all, so the claim that the
+        execution rule was "enforced in code" was only a comment - a caller could ask for
+        the fill price of the signal bar itself, or of any future bar, and get an answer.
+        Now the relation is checked on every call.
+
+        Fills at the bar's OPEN, never its close: filling at the close of a bar means
+        using that whole bar's information to trade at the end of it.
         """
+        self._check_index(signal_i)
         self._check_index(exec_i)
+        expected = self.next_executable_index(signal_i)
+        if expected is None:
+            raise LookAheadError(
+                f"signal at bar {signal_i} ({self.time_key[signal_i]}) has no executable "
+                f"successor in this mode; it must be dropped, not filled")
+        if exec_i != expected:
+            raise LookAheadError(
+                f"signal at bar {signal_i} may only fill at bar {expected} "
+                f"({self.time_key[expected]}), not {exec_i} ({self.time_key[exec_i]})")
+        if not self.is_fillable(exec_i):
+            raise NotFillableError(
+                f"bar {exec_i} ({self.time_key[exec_i]}) reports zero volume - the market "
+                f"was halted; a fill here would be imaginary")
         return float(self.open[exec_i])
+
+    def is_fillable(self, i: int) -> bool:
+        """False when no trade could have occurred on this bar.
+
+        The real series contains 7 zero-volume bars, all during the March 2020
+        circuit-breaker halts, carried as flat O=H=L=C placeholders. The original model
+        had no concept of an unfillable bar and would have quoted a price on them -
+        inventing fills at the most violent moments in the sample, in the direction the
+        strategy wanted.
+        """
+        self._check_index(i)
+        return bool(self.volume[i] > 0)
 
     # ---------------- flat-at-close ----------------
 
@@ -241,36 +284,39 @@ class BarSeries:
     # ---------------- validation ----------------
 
     def validate(self) -> None:
+        """Reject malformed data. Each check below exists because an adversarial review
+        got a malformed file past the previous version."""
         t = self.time_key
-        if len(set(t)) != len(t):
+        n = len(t)
+        if n == 0:
+            raise ValueError("empty series")
+
+        # --- timestamp format: 'strictly increasing' was a STRING comparison, so an
+        # ISO 'T' separator mixed in let time run backwards inside a day while still
+        # comparing as increasing. Parse instead of trusting lexicographic order.
+        try:
+            parsed = pd.to_datetime(pd.Series(list(t)), format="%Y-%m-%d %H:%M:%S")
+        except Exception as exc:
+            raise ValueError(f"time_key is not all 'YYYY-MM-DD HH:MM:SS': {exc}") from exc
+        if not parsed.is_monotonic_increasing:
+            bad = int(np.argmax(parsed.to_numpy()[1:] <= parsed.to_numpy()[:-1]))
+            raise ValueError(f"time goes backwards at {t[bad]} -> {t[bad + 1]}")
+        if parsed.duplicated().any():
             raise ValueError("duplicate timestamps")
-        if not all(t[i] < t[i + 1] for i in range(len(t) - 1)):
-            raise ValueError("timestamps are not strictly increasing")
 
-        bad_hm = sorted({h for h in self.hm if not (FIRST_BAR_HM <= h <= LAST_BAR_HM)})
-        if bad_hm:
-            raise ValueError(f"bars outside the regular session: {bad_hm[:5]}")
-
-        counts = {s.n_bars for s in self._sessions}
-        unexpected = counts - {REGULAR_BARS, HALF_DAY_BARS}
-        if unexpected:
-            offenders = [(s.date, s.n_bars) for s in self._sessions
-                         if s.n_bars in unexpected][:5]
-            raise ValueError(f"unexpected bars-per-session {sorted(unexpected)}: {offenders}")
-
-        for s in self._sessions:
-            if self.hm[s.start] != FIRST_BAR_HM:
-                raise ValueError(f"{s.date} starts at {self.hm[s.start]}, not {FIRST_BAR_HM}")
-            # Half-days close early. Verified on the real series: all 2012 sessions open
-            # at 09:35; 1995 close at 16:00 and 17 at 13:00. Hard-coding 16:00 as the
-            # close would leave a position open for three hours past the bell on those
-            # 17 days - which is exactly why forced_exit_index is index-based, not
-            # clock-based.
-            want_close = HALF_DAY_LAST_HM if s.is_half_day else LAST_BAR_HM
-            if self.hm[s.end] != want_close:
-                raise ValueError(
-                    f"{s.date} has {s.n_bars} bars and ends at {self.hm[s.end]}, "
-                    f"expected {want_close}")
+        # --- prices: np.any(close <= 0) is False for NaN, so NaN and inf sailed through
+        # every OHLC check. A whole-NaN file was previously 'valid'.
+        for name in ("open", "high", "low", "close"):
+            a = getattr(self, name)
+            if not np.all(np.isfinite(a)):
+                k = int(np.argmax(~np.isfinite(a)))
+                raise ValueError(f"{name} has a non-finite value at {t[k]}: {a[k]}")
+            if np.any(a <= 0):
+                k = int(np.argmax(a <= 0))
+                raise ValueError(f"{name} is non-positive at {t[k]}: {a[k]}")
+        if not np.all(np.isfinite(self.volume)) or np.any(self.volume < 0):
+            k = int(np.argmax(~np.isfinite(self.volume) | (self.volume < 0)))
+            raise ValueError(f"volume invalid at {t[k]}: {self.volume[k]}")
 
         if np.any(self.high < self.low):
             raise ValueError("high < low on some bars")
@@ -278,8 +324,50 @@ class BarSeries:
             raise ValueError("open outside [low, high] on some bars")
         if np.any((self.close > self.high) | (self.close < self.low)):
             raise ValueError("close outside [low, high] on some bars")
-        if np.any(self.close <= 0) or np.any(self.open <= 0):
-            raise ValueError("non-positive prices")
+
+        # --- session window and the 5-minute grid. 78 one-minute bars, or 78 bars
+        # inside one minute, previously passed as a normal session.
+        bad_hm = sorted({h for h in self.hm if not (FIRST_BAR_HM <= h <= LAST_BAR_HM)})
+        if bad_hm:
+            raise ValueError(f"bars outside the regular session: {bad_hm[:5]}")
+        mins = parsed.dt.minute.to_numpy()
+        if np.any(mins % 5 != 0):
+            k = int(np.argmax(mins % 5 != 0))
+            raise ValueError(f"bar not on the 5-minute grid: {t[k]}")
+
+        for sess in self._sessions:
+            if self.hm[sess.start] != FIRST_BAR_HM:
+                raise ValueError(
+                    f"{sess.date} starts at {self.hm[sess.start]}, not {FIRST_BAR_HM}")
+            want_close = HALF_DAY_LAST_HM if sess.is_half_day else LAST_BAR_HM
+            if self.hm[sess.end] != want_close:
+                raise ValueError(
+                    f"{sess.date} ends at {self.hm[sess.end]}, expected {want_close}")
+            want_bars = HALF_DAY_BARS if sess.is_half_day else REGULAR_BARS
+            if sess.n_bars != want_bars:
+                raise ValueError(
+                    f"{sess.date} closes at {self.hm[sess.end]} but has {sess.n_bars} "
+                    f"bars, expected {want_bars} - missing bars inside the session")
+            # gaps inside a session: bar count alone cannot see them
+            step = parsed.to_numpy()[sess.start + 1:sess.end + 1] -                 parsed.to_numpy()[sess.start:sess.end]
+            if len(step) and np.any(step != np.timedelta64(5, "m")):
+                k = int(np.argmax(step != np.timedelta64(5, "m")))
+                raise ValueError(
+                    f"gap inside {sess.date}: {t[sess.start + k]} -> {t[sess.start + k + 1]}")
+
+    def missing_sessions(self, calendar_csv: str) -> list:
+        """Trading days the calendar has and this series does not.
+
+        validate() deliberately does NOT call this - it needs an external file. But it
+        must be run before any backtest: validate() never looked at dates at all, so
+        deleting whole sessions left a file that was still 'valid'. The review showed
+        removing QQQ's worst 20 sessions - 1 % of the sample - moved CAGR from 5.57 % to
+        16.60 %. A silent hole of that size is not survivable.
+        """
+        cal = pd.read_csv(calendar_csv)["date"].astype(str)
+        have = {s.date for s in self._sessions}
+        lo, hi = min(have), max(have)
+        return sorted(d for d in cal if lo <= d <= hi and d not in have)
 
     def check_calendar(self, calendar_csv: str) -> dict:
         """Compare session dates against the derived trading calendar."""

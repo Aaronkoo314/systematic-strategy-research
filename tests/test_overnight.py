@@ -53,7 +53,7 @@ def test_overnight_mode_fills_on_the_next_session_open():
     nxt = s.next_executable_index(last)
     assert nxt == last + 1
     assert s.date[nxt] != s.date[last]
-    assert s.fill_price(nxt) == pytest.approx(s.open[nxt])
+    assert s.fill_price(last, nxt) == pytest.approx(s.open[nxt])
 
 
 def test_overnight_fill_is_flagged_as_such():
