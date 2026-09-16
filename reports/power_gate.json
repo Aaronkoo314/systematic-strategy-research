@@ -1,0 +1,39 @@
+{
+  "generated_for": "selection_criteria.md appendix A.5(a) ex-ante power gate",
+  "sessions": 2012,
+  "years": 7.984,
+  "annualised_volatility": 0.242028,
+  "effective_sample_size_daily": 2755.5,
+  "raw_daily_observations": 2011,
+  "by_exposure": [
+    {
+      "exposure": 0.25,
+      "tracking_error": 0.2099804277192898,
+      "mda_80pct": 0.2081927702037104,
+      "n_configs": 1
+    },
+    {
+      "exposure": 0.5,
+      "tracking_error": 0.17111694036892738,
+      "mda_80pct": 0.1696601451436962,
+      "n_configs": 1
+    },
+    {
+      "exposure": 0.75,
+      "tracking_error": 0.12106837689069175,
+      "mda_80pct": 0.12003766752316455,
+      "n_configs": 1
+    },
+    {
+      "exposure": 0.9,
+      "tracking_error": 0.07670244540837928,
+      "mda_80pct": 0.07604944310484597,
+      "n_configs": 1
+    }
+  ],
+  "tracking_error_at_50pct": 0.171117,
+  "mda_80pct_1_config": 0.16966,
+  "mda_80pct_24_configs": 0.237373,
+  "fee_ceiling": 0.1,
+  "note": "tracking error is the denominator a timing overlay carries regardless of skill; a skilful rule and a worthless one share it"
+}
