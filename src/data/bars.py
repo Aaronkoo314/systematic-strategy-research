@@ -44,6 +44,9 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
+FREQ_5MIN = "5min"
+FREQ_DAILY = "daily"
+
 REGULAR_BARS = 78          # 6.5h / 5min
 HALF_DAY_BARS = 42
 FIRST_BAR_HM = "09:35"
@@ -79,7 +82,14 @@ class BarSeries:
     """
 
     def __init__(self, df: pd.DataFrame, *, validate: bool = True,
-                 allow_overnight: bool = False):
+                 allow_overnight: bool = False, frequency: str = FREQ_5MIN):
+        if frequency not in (FREQ_5MIN, FREQ_DAILY):
+            raise ValueError(f"frequency must be 5min or daily, got {frequency!r}")
+        self.frequency = frequency
+        # A daily bar is held overnight by construction; pretending otherwise would
+        # silently drop every signal, since each session is a single bar.
+        if frequency == FREQ_DAILY and not allow_overnight:
+            allow_overnight = True
         self.allow_overnight = bool(allow_overnight)
         need = {"time_key", "open", "high", "low", "close", "volume"}
         missing = need - set(df.columns)
@@ -336,6 +346,17 @@ class BarSeries:
         if np.any((self.close > self.high) | (self.close < self.low)):
             raise ValueError("close outside [low, high] on some bars")
 
+        if self.frequency == FREQ_DAILY:
+            # One bar per session by construction, so the 5-minute session-shape
+            # checks do not apply. Everything above - ordering, duplicates, finite
+            # positive prices, OHLC consistency - has already run and still does.
+            if any(sess.n_bars != 1 for sess in self._sessions):
+                bad = next(x for x in self._sessions if x.n_bars != 1)
+                raise ValueError(
+                    f"daily series has {bad.n_bars} bars on {bad.date}; "
+                    f"expected exactly one")
+            return
+
         # --- session window and the 5-minute grid. 78 one-minute bars, or 78 bars
         # inside one minute, previously passed as a normal session.
         bad_hm = sorted({h for h in self.hm if not (FIRST_BAR_HM <= h <= LAST_BAR_HM)})
@@ -395,4 +416,27 @@ def load_5min(path: str, *, validate: bool = True,
     if not os.path.exists(path):
         raise FileNotFoundError(
             f"{path} not found - run `python tools/pull_intraday.py` first")
-    return BarSeries(pd.read_csv(path), validate=validate, allow_overnight=allow_overnight)
+    return BarSeries(pd.read_csv(path), validate=validate,
+                     allow_overnight=allow_overnight, frequency=FREQ_5MIN)
+
+
+def load_daily(path: str, *, validate: bool = True) -> BarSeries:
+    """Daily bars at RAW prices.
+
+    The file written by tools/audit_data.py carries both raw and adjusted columns.
+    Only the raw ones are used: adjusted prices rescale the whole history, so
+    floor(cash / price) would give wrong share counts, and they are not executable
+    order prices. Distributions are handled separately as cash events on ex-dates.
+    """
+    if not os.path.exists(path):
+        raise FileNotFoundError(
+            f"{path} not found - run `python tools/audit_data.py` first")
+    df = pd.read_csv(path)
+    if "close_raw" in df.columns:
+        df = df.rename(columns={"open_raw": "open", "high_raw": "high",
+                                "low_raw": "low", "close_raw": "close"})
+    keep = ["time_key", "open", "high", "low", "close", "volume"]
+    missing = [c for c in keep if c not in df.columns]
+    if missing:
+        raise ValueError(f"daily file is missing {missing}")
+    return BarSeries(df[keep], validate=validate, frequency=FREQ_DAILY)

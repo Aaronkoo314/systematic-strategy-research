@@ -1,0 +1,22 @@
+{
+  "generated_utc": "2026-09-16T13:10:41.032840+00:00",
+  "code": "US.QQQ",
+  "source": "moomoo OpenAPI get_rehab via local OpenD",
+  "window": [
+    "2006-09-01",
+    "2026-09-12"
+  ],
+  "n_distributions_in_window": 82,
+  "n_records_total": 89,
+  "first_ex_date_on_record": "2000-03-20",
+  "first_ex_date_in_window": "2006-09-15",
+  "last_ex_date_in_window": "2026-06-22",
+  "splits_in_window": 0,
+  "total_per_share_gross": 26.9398,
+  "total_per_share_net_after_30pct": 18.85786,
+  "withholding_rate": 0.3,
+  "withholding_basis": "Singapore tax residency, no US-Singapore income tax treaty; W-8BEN status UNCONFIRMED - see investment_mandate.md \u00a78",
+  "booking_rule": "book as a cash credit on the ex-date for shares held at that moment; never substitute an adjusted price series",
+  "file": "data/US_QQQ_dividends.csv",
+  "sha256": "4f3cb656f657dd3c76f0579cc66cc25ddb3f4603362a3de5e51e41dd277bdd72"
+}

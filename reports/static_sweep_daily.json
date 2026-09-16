@@ -1,0 +1,206 @@
+{
+  "full 2006-09 .. 2026-09 (20y, contains 2008)": [
+    {
+      "weight": 0.2,
+      "total_return": 0.7609474286534839,
+      "cagr": 0.028713970360773278,
+      "max_drawdown": -0.13485215841035392,
+      "n_fills": 222,
+      "fees_pct_yr": 0.12165444266559937,
+      "final_nav": 17609.474286534838,
+      "breached_20pct": false
+    },
+    {
+      "weight": 0.25,
+      "total_return": 1.0428016518402412,
+      "cagr": 0.03638363927682864,
+      "max_drawdown": -0.1595561237489045,
+      "n_fills": 257,
+      "fees_pct_yr": 0.14087012207324393,
+      "final_nav": 20428.01651840241,
+      "breached_20pct": false
+    },
+    {
+      "weight": 0.3,
+      "total_return": 1.3914287455620542,
+      "cagr": 0.04458587398298919,
+      "max_drawdown": -0.16983711475710273,
+      "n_fills": 197,
+      "fees_pct_yr": 0.10815074044426655,
+      "final_nav": 23914.287455620542,
+      "breached_20pct": false
+    },
+    {
+      "weight": 0.35,
+      "total_return": 1.7847082470006899,
+      "cagr": 0.05257301181387408,
+      "max_drawdown": -0.19792774357043497,
+      "n_fills": 213,
+      "fees_pct_yr": 0.11696803081849112,
+      "final_nav": 27847.0824700069,
+      "breached_20pct": false
+    },
+    {
+      "weight": 0.375,
+      "total_return": 2.005901180211247,
+      "cagr": 0.056605747783797566,
+      "max_drawdown": -0.20900565127036363,
+      "n_fills": 212,
+      "fees_pct_yr": 0.11646192715629378,
+      "final_nav": 30059.01180211247,
+      "breached_20pct": true
+    },
+    {
+      "weight": 0.4,
+      "total_return": 2.2429830499423984,
+      "cagr": 0.06062644093558012,
+      "max_drawdown": -0.2230054472948333,
+      "n_fills": 209,
+      "fees_pct_yr": 0.11485031018611169,
+      "final_nav": 32429.830499423984,
+      "breached_20pct": true
+    },
+    {
+      "weight": 0.5,
+      "total_return": 3.392126624471792,
+      "cagr": 0.07684421982623935,
+      "max_drawdown": -0.27732467373465297,
+      "n_fills": 220,
+      "fees_pct_yr": 0.12096728036822092,
+      "final_nav": 43921.26624471792,
+      "breached_20pct": true
+    },
+    {
+      "weight": 0.6,
+      "total_return": 4.9437796596107395,
+      "cagr": 0.09326686694370578,
+      "max_drawdown": -0.33112638844821873,
+      "n_fills": 246,
+      "fees_pct_yr": 0.13527751650990594,
+      "final_nav": 59437.79659610739,
+      "breached_20pct": true
+    },
+    {
+      "weight": 0.8,
+      "total_return": 9.92775687448475,
+      "cagr": 0.12708709779643712,
+      "max_drawdown": -0.4306192540313357,
+      "n_fills": 153,
+      "fees_pct_yr": 0.08437827696617971,
+      "final_nav": 109277.5687448475,
+      "breached_20pct": true
+    },
+    {
+      "weight": 1.0,
+      "total_return": 17.7819020039,
+      "cagr": 0.1580435979952568,
+      "max_drawdown": -0.5331797759743977,
+      "n_fills": 3,
+      "fees_pct_yr": 0.0020388232939763857,
+      "final_nav": 187819.020039,
+      "breached_20pct": true
+    }
+  ],
+  "post-GFC 2010-01 .. 2026-09 (16.7y, no 2008)": [
+    {
+      "weight": 0.2,
+      "total_return": 0.7251991998759986,
+      "cagr": 0.03327786252883991,
+      "max_drawdown": -0.07359868191381713,
+      "n_fills": 499,
+      "fees_pct_yr": 0.3275401884867039,
+      "final_nav": 17251.991998759986,
+      "breached_20pct": false
+    },
+    {
+      "weight": 0.25,
+      "total_return": 0.9691511459987214,
+      "cagr": 0.041514103202955344,
+      "max_drawdown": -0.09322990801792186,
+      "n_fills": 576,
+      "fees_pct_yr": 0.3781160333753527,
+      "final_nav": 19691.511459987214,
+      "breached_20pct": false
+    },
+    {
+      "weight": 0.3,
+      "total_return": 1.2397766108970596,
+      "cagr": 0.04959630447374064,
+      "max_drawdown": -0.10524636185041658,
+      "n_fills": 594,
+      "fees_pct_yr": 0.3899998199171619,
+      "final_nav": 22397.766108970594,
+      "breached_20pct": false
+    },
+    {
+      "weight": 0.35,
+      "total_return": 1.592482264933821,
+      "cagr": 0.05885081133932624,
+      "max_drawdown": -0.12053721185880661,
+      "n_fills": 565,
+      "fees_pct_yr": 0.3710668707605499,
+      "final_nav": 25924.82264933821,
+      "breached_20pct": false
+    },
+    {
+      "weight": 0.375,
+      "total_return": 1.7735914768740098,
+      "cagr": 0.06315164140473861,
+      "max_drawdown": -0.1271104090947892,
+      "n_fills": 603,
+      "fees_pct_yr": 0.3960446005162375,
+      "final_nav": 27735.9147687401,
+      "breached_20pct": false
+    },
+    {
+      "weight": 0.4,
+      "total_return": 1.974424038902697,
+      "cagr": 0.06762246871149324,
+      "max_drawdown": -0.13832100180667162,
+      "n_fills": 621,
+      "fees_pct_yr": 0.4078837265141966,
+      "final_nav": 29744.24038902697,
+      "breached_20pct": false
+    },
+    {
+      "weight": 0.5,
+      "total_return": 3.03036331820669,
+      "cagr": 0.08727137822783337,
+      "max_drawdown": -0.17460293520903802,
+      "n_fills": 143,
+      "fees_pct_yr": 0.09450081037277148,
+      "final_nav": 40303.6331820669,
+      "breached_20pct": false
+    },
+    {
+      "weight": 0.6,
+      "total_return": 4.364270735070262,
+      "cagr": 0.10609261935034753,
+      "max_drawdown": -0.21069463771177732,
+      "n_fills": 130,
+      "fees_pct_yr": 0.08602323068611561,
+      "final_nav": 53642.70735070262,
+      "breached_20pct": true
+    },
+    {
+      "weight": 0.8,
+      "total_return": 8.498778988245936,
+      "cagr": 0.14469032894940326,
+      "max_drawdown": -0.2800713698870887,
+      "n_fills": 90,
+      "fees_pct_yr": 0.059760910018608566,
+      "final_nav": 94987.78988245936,
+      "breached_20pct": true
+    },
+    {
+      "weight": 1.0,
+      "total_return": 14.768608944500002,
+      "cagr": 0.1800538929592974,
+      "max_drawdown": -0.3436334127921864,
+      "n_fills": 1,
+      "fees_pct_yr": 0.0010701722792484543,
+      "final_nav": 157686.08944500002,
+      "breached_20pct": true
+    }
+  ]
+}
