@@ -37,3 +37,10 @@ logs/*.log
 !logs/adjustment_verification.json
 # Committed instead: logs/redacted/*.json, produced by tools/redact_logs.py,
 # which keeps only capability evidence (what the API supports, quotas, limits).
+
+# --- Bar-level equity curves: multi-MB and fully regenerable ---
+# `python tools/run_experiment.py` recreates them. The daily downsample committed
+# alongside is what every figure in report_sop.md actually consumes.
+reports/equity_validation.csv
+reports/equity_test.csv
+reports/smoke_equity_daily.csv
