@@ -21,8 +21,19 @@ Verified conventions (docs/intraday_data.md):
   - Prices are raw (AuType.NONE), so share counts and order prices are real.
 
 Execution rule, enforced here rather than left to the strategy:
-  a signal computed from bar i may fill no earlier than bar i+1, at that bar's OPEN,
-  and never across a session boundary.
+  a signal computed from bar i may fill no earlier than bar i+1, at that bar's OPEN.
+
+Whether a fill may cross a session boundary is a REGIME decision, not a detail:
+  allow_overnight=False - flat at the close. A signal on the last bar of a session is
+    dropped; nothing is carried overnight. Confines the strategy to the intraday
+    segment, which over 2018-2026 carried 5.92 %/yr of QQQ's 18.63 %/yr total drift.
+  allow_overnight=True  - positions may be held across the close. The fill on the next
+    session's first bar IS an overnight gap fill, and is reported as such, because the
+    17-hour information gap and the gap risk are real and must not be invisible.
+    Operator chose this on 2026-09-16. Consequence: a position held across an ex-date
+    receives a distribution, which must be booked as a cash event - see
+    tools/pull_dividends.py. The flat-at-close helpers raise in this mode rather than
+    silently returning a number that no longer means anything.
 """
 
 from __future__ import annotations
@@ -63,7 +74,9 @@ class BarSeries:
     data it was given will raise rather than silently corrupt the backtest.
     """
 
-    def __init__(self, df: pd.DataFrame, *, validate: bool = True):
+    def __init__(self, df: pd.DataFrame, *, validate: bool = True,
+                 allow_overnight: bool = False):
+        self.allow_overnight = bool(allow_overnight)
         need = {"time_key", "open", "high", "low", "close", "volume"}
         missing = need - set(df.columns)
         if missing:
@@ -162,20 +175,28 @@ class BarSeries:
         return out
 
     def next_executable_index(self, signal_i: int) -> int | None:
-        """Earliest bar a signal from `signal_i` may fill on.
+        """Earliest bar a signal from `signal_i` may fill on. Always signal_i + 1.
 
-        Always signal_i + 1, and never across a session boundary - an intraday
-        strategy that is flat overnight cannot fill a signal on the next morning's
-        open, because the information is 17 hours stale and the gap is unmodelled.
-        Returns None when the signal lands on the last bar of a session.
+        When allow_overnight is False a signal on a session's last bar returns None -
+        it is dropped rather than carried. When True the next session's first bar is
+        returned, and `is_overnight_fill` reports that the fill crosses the gap.
+        Returns None at the end of the series in either mode.
         """
         self._check_index(signal_i)
         nxt = signal_i + 1
         if nxt >= len(self.time_key):
             return None
-        if self._session_of[nxt] != self._session_of[signal_i]:
+        if not self.allow_overnight and self._session_of[nxt] != self._session_of[signal_i]:
             return None
         return nxt
+
+    def is_overnight_fill(self, signal_i: int, exec_i: int) -> bool:
+        """True when a fill crosses the close. Such fills carry gap risk and 17-hour-old
+        information; the engine must charge gap slippage and report them separately
+        rather than treating them as ordinary five-minute fills."""
+        self._check_index(signal_i)
+        self._check_index(exec_i)
+        return bool(self._session_of[exec_i] != self._session_of[signal_i])
 
     def fill_price(self, exec_i: int) -> float:
         """A fill happens at the OPEN of the execution bar, never its close.
@@ -188,13 +209,20 @@ class BarSeries:
 
     # ---------------- flat-at-close ----------------
 
+    def _require_flat_overnight(self, what: str) -> None:
+        if self.allow_overnight:
+            raise RuntimeError(
+                f"{what} encodes the flat-at-close rule and is meaningless when "
+                f"allow_overnight=True; the engine must manage exits explicitly")
+
     def forced_exit_index(self, i: int) -> int:
-        """Bar on which an open position must be closed. Operator chose flat overnight.
+        """Bar on which an open position must be closed, in flat-at-close mode only.
 
         The exit fills at the OPEN of the session's final bar (15:55 on a normal day),
         so the position is closed before the closing auction rather than at it - we
         cannot place market-on-close orders under the NORMAL/MARKET-only constraint.
         """
+        self._require_flat_overnight("forced_exit_index")
         return self.session_of(i).end
 
     def is_forced_exit_bar(self, i: int) -> bool:
@@ -207,6 +235,7 @@ class BarSeries:
         so k+1 <= end, i.e. k <= end - 1. Signals after that are dropped rather than
         silently carried overnight.
         """
+        self._require_flat_overnight("last_entry_signal_index")
         return self.session_of(i).end - 1
 
     # ---------------- validation ----------------
@@ -262,8 +291,9 @@ class BarSeries:
                 "missing": sorted(expected - have), "extra": sorted(have - cal)}
 
 
-def load_5min(path: str, *, validate: bool = True) -> BarSeries:
+def load_5min(path: str, *, validate: bool = True,
+              allow_overnight: bool = False) -> BarSeries:
     if not os.path.exists(path):
         raise FileNotFoundError(
             f"{path} not found - run `python tools/pull_intraday.py` first")
-    return BarSeries(pd.read_csv(path), validate=validate)
+    return BarSeries(pd.read_csv(path), validate=validate, allow_overnight=allow_overnight)
