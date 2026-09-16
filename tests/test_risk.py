@@ -282,3 +282,33 @@ def test_a_strategy_raising_inside_the_engine_cannot_leave_risk_state_stale():
     with pytest.raises(ZeroDivisionError):
         bt.run(broken, warmup=1)
     assert bt.risk.state.hwm > 0        # observe() ran before the strategy was called
+
+
+# ---------------- halt lifecycle, added 2026-09-16 after the first run was voided ----
+
+def test_daily_halt_expires_at_the_next_session_but_drawdown_halt_does_not():
+    """Nothing cleared a halt before this, so after the first 1% down day the system
+    could only ever reduce exposure. The first full experiment measured that artefact."""
+    rm = RiskManager(RiskLimits())
+    rm.start_session("2024-01-02")
+    rm.observe(10_000.0, "2024-01-02")
+    rm.observe(9_890.0, "2024-01-02")               # -1.1% on the day
+    assert rm.state.halted is True and rm.state.halt_kind == "DAILY"
+
+    rm.start_session("2024-01-03")
+    assert rm.state.halted is False, "a daily limit must mean the rest of that day"
+    assert any(e["kind"] == "HALT_EXPIRED" for e in rm.events)
+
+    rm.observe(9_150.0, "2024-01-03")               # -8.5% drawdown
+    assert rm.state.halted is True and rm.state.halt_kind == "DRAWDOWN"
+    rm.start_session("2024-01-04")
+    assert rm.state.halted is True, "a drawdown halt needs a human, not a new day"
+
+
+def test_abandonment_survives_a_new_session():
+    rm = RiskManager(RiskLimits())
+    rm.observe(10_000.0, "2024-01-02")
+    rm.observe(7_900.0, "2024-01-03")
+    assert rm.state.abandoned is True
+    rm.start_session("2024-01-04")
+    assert rm.state.abandoned is True

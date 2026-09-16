@@ -109,6 +109,7 @@ class RiskState:
     day_start_nav: float = 0.0
     halted: bool = False
     halt_reason: str = ""
+    halt_kind: str = ""          # "DAILY" clears next session; "DRAWDOWN" needs review
     abandoned: bool = False
     abandon_reason: str = ""
     review_flagged: bool = False
@@ -164,6 +165,7 @@ class RiskManager:
 
         if not st.halted and dd <= -lim.drawdown_halt:
             st.halted = True
+            st.halt_kind = "DRAWDOWN"
             st.halt_reason = f"drawdown {dd:.2%} breached halt {-lim.drawdown_halt:.0%}"
             self._event(date, "HALT_DRAWDOWN", st.halt_reason, nav, dd)
 
@@ -174,11 +176,32 @@ class RiskManager:
         day_r = st.day_return(nav)
         if not st.halted and day_r <= -lim.daily_loss_rate:
             st.halted = True
+            st.halt_kind = "DAILY"
             st.halt_reason = f"daily loss {day_r:.2%} breached {-lim.daily_loss_rate:.0%}"
             self._event(date, "HALT_DAILY_LOSS", st.halt_reason, nav, dd)
 
     def start_session(self, date: str) -> None:
-        self.state.fees_by_session.append((date, 0.0))
+        """New session. A DAILY loss halt expires here; a DRAWDOWN halt does not.
+
+        This distinction was missing and it mattered enormously. Without it nothing ever
+        cleared a halt, so after the first 1% down day - within days on QQQ - the system
+        could only ever reduce exposure. A first full experiment run measured that
+        artefact rather than the strategy: average weight collapsed to 8-31% against an
+        intended 58-90%, and every configuration reported halted=True with roughly
+        82,000 blocked orders. Those results are void and are recorded as such.
+
+        A "daily" loss limit means the rest of that day. A drawdown halt is a different
+        thing: it says something may be wrong with the strategy, and only a human
+        looking at it should lift that.
+        """
+        st = self.state
+        if st.halted and st.halt_kind == "DAILY":
+            st.halted = False
+            st.halt_kind = ""
+            prev, st.halt_reason = st.halt_reason, ""
+            self._event(date, "HALT_EXPIRED", f"daily halt expired at session open ({prev})",
+                        None, None)
+        st.fees_by_session.append((date, 0.0))
 
     def record_fees(self, date: str, fees: float) -> None:
         st = self.state
@@ -199,6 +222,7 @@ class RiskManager:
                 "abandonment is terminal and cannot be cleared: "
                 f"{self.state.abandon_reason}")
         self.state.halted = False
+        self.state.halt_kind = ""
         self.state.halt_reason = ""
         self._event(date, "HALT_CLEARED", reason, None, None)
 
