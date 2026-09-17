@@ -1,0 +1,71 @@
+{
+  "horizon_sessions": 30,
+  "after_sessions": 10,
+  "stride": 6,
+  "rows": [
+    {
+      "tp": 0.03,
+      "sl": 0.03,
+      "base_win_rate": 0.5745374990404545,
+      "base_n": 26054,
+      "tp_hits": 14969,
+      "further_median": 0.02587096593050653,
+      "further_p75": 0.04003792518544702,
+      "share_further_2pct": 0.6162736321731579,
+      "share_further_5pct": 0.1545861446990447,
+      "share_further_10pct": 0.008684614870732847,
+      "reentry_after_tp_win_rate": 0.625292270692765,
+      "reentry_after_tp_n": 14969,
+      "reentry_after_sl_win_rate": 0.4452955082742317,
+      "reentry_after_sl_n": 10575
+    },
+    {
+      "tp": 0.05,
+      "sl": 0.03,
+      "base_win_rate": 0.44081522990711597,
+      "base_n": 26054,
+      "tp_hits": 11485,
+      "further_median": 0.022993850268081983,
+      "further_p75": 0.03753524040450684,
+      "share_further_2pct": 0.5677840661732695,
+      "share_further_5pct": 0.1588158467566391,
+      "share_further_10pct": 0.0061819764910753154,
+      "reentry_after_tp_win_rate": 0.482542446669569,
+      "reentry_after_tp_n": 11485,
+      "reentry_after_sl_win_rate": 0.3578396940607196,
+      "reentry_after_sl_n": 12813
+    },
+    {
+      "tp": 0.05,
+      "sl": 0.05,
+      "base_win_rate": 0.506755200736931,
+      "base_n": 26054,
+      "tp_hits": 13203,
+      "further_median": 0.023858347166617833,
+      "further_p75": 0.038872823984965055,
+      "share_further_2pct": 0.5850185563886995,
+      "share_further_5pct": 0.16715897901991972,
+      "share_further_10pct": 0.006437930773309096,
+      "reentry_after_tp_win_rate": 0.5502537302128304,
+      "reentry_after_tp_n": 13203,
+      "reentry_after_sl_win_rate": 0.5807762215331979,
+      "reentry_after_sl_n": 9353
+    },
+    {
+      "tp": 0.1,
+      "sl": 0.05,
+      "base_win_rate": 0.16711445459430413,
+      "base_n": 26054,
+      "tp_hits": 4354,
+      "further_median": 0.02726126139427465,
+      "further_p75": 0.046211946726056496,
+      "share_further_2pct": 0.6127698667891593,
+      "share_further_5pct": 0.20624712907671108,
+      "share_further_10pct": 0.0006890215893431327,
+      "reentry_after_tp_win_rate": 0.15043638033991732,
+      "reentry_after_tp_n": 4354,
+      "reentry_after_sl_win_rate": 0.3059165858389913,
+      "reentry_after_sl_n": 10310
+    }
+  ]
+}

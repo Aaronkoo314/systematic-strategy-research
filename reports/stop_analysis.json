@@ -1,0 +1,91 @@
+{
+  "horizon_sessions": 30,
+  "stride": 6,
+  "recheck_sessions": 5,
+  "rows": [
+    {
+      "tp": 0.03,
+      "sl": 0.03,
+      "winners_if_no_stop": 19315,
+      "killed_by_stop": 4346,
+      "kill_rate": 0.2250064716541548,
+      "mae_median": -0.013957993923649381,
+      "mae_p90": -0.05392349980246804,
+      "stops": 10575,
+      "recovery_rate": 0.30439716312056736,
+      "median_bars_to_recover": 194.0,
+      "median_sessions_to_recover": 2.4871794871794872,
+      "median_further_drop_after_stop": -0.05458784084658297
+    },
+    {
+      "tp": 0.03,
+      "sl": 0.05,
+      "winners_if_no_stop": 19315,
+      "killed_by_stop": 2213,
+      "kill_rate": 0.11457416515661403,
+      "mae_median": -0.013957993923649381,
+      "mae_p90": -0.05392349980246804,
+      "stops": 7855,
+      "recovery_rate": 0.15480585614258435,
+      "median_bars_to_recover": 263.0,
+      "median_sessions_to_recover": 3.371794871794872,
+      "median_further_drop_after_stop": -0.0709106239460372
+    },
+    {
+      "tp": 0.05,
+      "sl": 0.03,
+      "winners_if_no_stop": 14775,
+      "killed_by_stop": 3290,
+      "kill_rate": 0.22267343485617597,
+      "mae_median": -0.013792931092859395,
+      "mae_p90": -0.05156963241542023,
+      "stops": 12813,
+      "recovery_rate": 0.3242800280964645,
+      "median_bars_to_recover": 185.0,
+      "median_sessions_to_recover": 2.371794871794872,
+      "median_further_drop_after_stop": -0.0542998813616038
+    },
+    {
+      "tp": 0.05,
+      "sl": 0.05,
+      "winners_if_no_stop": 14775,
+      "killed_by_stop": 1572,
+      "kill_rate": 0.10639593908629441,
+      "mae_median": -0.013792931092859395,
+      "mae_p90": -0.05156963241542023,
+      "stops": 9353,
+      "recovery_rate": 0.15599272960547417,
+      "median_bars_to_recover": 260.0,
+      "median_sessions_to_recover": 3.3333333333333335,
+      "median_further_drop_after_stop": -0.07205742041807617
+    },
+    {
+      "tp": 0.03,
+      "sl": 0.02,
+      "winners_if_no_stop": 19315,
+      "killed_by_stop": 7108,
+      "kill_rate": 0.3680041418586591,
+      "mae_median": -0.013957993923649381,
+      "mae_p90": -0.05392349980246804,
+      "stops": 13566,
+      "recovery_rate": 0.5068553737284387,
+      "median_bars_to_recover": 144.0,
+      "median_sessions_to_recover": 1.8461538461538463,
+      "median_further_drop_after_stop": -0.041135032225919244
+    },
+    {
+      "tp": 0.1,
+      "sl": 0.05,
+      "winners_if_no_stop": 4815,
+      "killed_by_stop": 461,
+      "kill_rate": 0.09574247144340603,
+      "mae_median": -0.014738015943579708,
+      "mae_p90": -0.049113785404671435,
+      "stops": 10310,
+      "recovery_rate": 0.1591658583899127,
+      "median_bars_to_recover": 248.0,
+      "median_sessions_to_recover": 3.1794871794871793,
+      "median_further_drop_after_stop": -0.07297477219789006
+    }
+  ]
+}
