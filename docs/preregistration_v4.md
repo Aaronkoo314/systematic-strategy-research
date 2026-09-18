@@ -1,5 +1,34 @@
 # Preregistration V4 - cross-sectional test of short-horizon state dependence
 
+**STATUS: REJECTED, NEVER RUN. See `docs/cross_section_verdict.md`.**
+
+Kept in the repository unchanged below this header, because a design that was rejected
+before it ran is worth more on the record than a design quietly deleted. Two things
+killed it, found by an adversarial review of this document conducted before any
+cross-sectional number existed:
+
+1. **The ex-ante power gate this document omitted.** `selection_criteria.md` A.5(a) makes
+   it mandatory and highest-priority; V1 and V2 submitted it, V3 argued an exemption, and
+   V4 neither submitted nor argued. Run afterwards, it fails by 3x to 14x, and fails for
+   every possible universe size because co-movement caps the effective sample near 2-3
+   however many symbols are added.
+
+2. **Section 3's OUT state is arithmetically incapable of testing section 1's H1.** The
+   re-entry trigger sits X above the exit price, so every completed OUT episode spans an
+   interval over which the asset returns exactly +X and the rule returns 0. The primary
+   statistic is therefore negative by construction whether H1 is true or false. Confirmed
+   analytically, by simulation, and on the real bars, where the minimum refill/exit ratio
+   across ~2,000 episodes is exactly 1+X to six decimals.
+
+Section 1's sentence "out of the market disproportionately during bad stretches" is
+**false** for the rule in section 3. It is left in place below rather than edited, so the
+error is legible.
+
+V4 consumed no configurations; the budget stands at 21 of 24. V4 itself may not be revived
+- its training answer was computed during the review and has been seen.
+
+---
+
 DRAFT - frozen only when committed. Written before any data beyond QQQ was pulled and
 before any cross-sectional return was computed.
 

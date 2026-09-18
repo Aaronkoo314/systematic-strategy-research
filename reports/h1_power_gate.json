@@ -1,0 +1,43 @@
+{
+  "alpha": 0.0020833333333333333,
+  "z_alpha": 3.0902,
+  "z_power": 0.8416,
+  "levels": {
+    "0.01": {
+      "symbols_used": 23,
+      "total_races": 54808,
+      "races_per_symbol": 2382.9565217391305,
+      "rho_bar_of_race_outcomes": 0.31990142273610195,
+      "n_eff": 2.8614683664042793,
+      "se_naive_independent": 0.0057130271794657355,
+      "se_effective": 0.01619704294340911,
+      "mde_at_bonferroni": 0.06368353344489594,
+      "mde_uncorrected": 0.04537763551025496,
+      "cross_section_gain_vs_one_symbol": 1.6915875284490245
+    },
+    "0.02": {
+      "symbols_used": 23,
+      "total_races": 16420,
+      "races_per_symbol": 713.9130434782609,
+      "rho_bar_of_race_outcomes": 0.4493034044355027,
+      "n_eff": 2.113062651518547,
+      "se_naive_independent": 0.011702509687813068,
+      "se_effective": 0.038608838836053365,
+      "mde_at_bonferroni": 0.1518022325355946,
+      "mde_uncorrected": 0.1081665228830871,
+      "cross_section_gain_vs_one_symbol": 1.453637730494963
+    },
+    "0.03": {
+      "symbols_used": 23,
+      "total_races": 7862,
+      "races_per_symbol": 341.82608695652175,
+      "rho_bar_of_race_outcomes": 0.5219855833904512,
+      "n_eff": 1.8424050262051954,
+      "se_naive_independent": 0.020637130850415446,
+      "se_effective": 0.07291563813785984,
+      "mde_at_bonferroni": 0.2866897060304373,
+      "mde_uncorrected": 0.20428045180702814,
+      "cross_section_gain_vs_one_symbol": 1.3573522115520331
+    }
+  }
+}
