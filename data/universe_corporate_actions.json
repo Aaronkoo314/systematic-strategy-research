@@ -1,0 +1,895 @@
+{
+  "generated_from": "data/universe_manifest.json + data/universe_dividends_manifest.json",
+  "gap_threshold": 0.06,
+  "split_convention_verified": "post-split price = pre-split price x ratio; a position crossing a split holds shares x (1/ratio), so its value is unchanged and no barrier may fire on it",
+  "sessions_common_to_all": 2010,
+  "sessions_union": 2010,
+  "symbols_missing_sessions": {},
+  "corporate_actions": [
+    {
+      "symbol": "USO",
+      "ex_date": "2020-04-29",
+      "type": "split",
+      "price_multiplier": 8.0,
+      "share_multiplier": 0.125,
+      "observed_close_ratio": 8.452113,
+      "residual_market_move": 0.056514,
+      "verdict": "confirmed, day also moved"
+    },
+    {
+      "symbol": "XLB",
+      "ex_date": "2025-12-05",
+      "type": "split",
+      "price_multiplier": 0.5,
+      "share_multiplier": 2.0,
+      "observed_close_ratio": 0.5,
+      "residual_market_move": 0.0,
+      "verdict": "CONFIRMED"
+    },
+    {
+      "symbol": "XLE",
+      "ex_date": "2025-12-05",
+      "type": "split",
+      "price_multiplier": 0.5,
+      "share_multiplier": 2.0,
+      "observed_close_ratio": 0.501518,
+      "residual_market_move": 0.003036,
+      "verdict": "CONFIRMED"
+    },
+    {
+      "symbol": "XLK",
+      "ex_date": "2025-12-05",
+      "type": "split",
+      "price_multiplier": 0.5,
+      "share_multiplier": 2.0,
+      "observed_close_ratio": 0.503109,
+      "residual_market_move": 0.006218,
+      "verdict": "CONFIRMED"
+    },
+    {
+      "symbol": "XLU",
+      "ex_date": "2025-12-05",
+      "type": "split",
+      "price_multiplier": 0.5,
+      "share_multiplier": 2.0,
+      "observed_close_ratio": 0.499295,
+      "residual_market_move": -0.001409,
+      "verdict": "CONFIRMED"
+    },
+    {
+      "symbol": "XLY",
+      "ex_date": "2025-12-05",
+      "type": "split",
+      "price_multiplier": 0.5,
+      "share_multiplier": 2.0,
+      "observed_close_ratio": 0.501172,
+      "residual_market_move": 0.002343,
+      "verdict": "CONFIRMED"
+    }
+  ],
+  "split_mismatches": [],
+  "large_gaps": [
+    {
+      "symbol": "XLB",
+      "date": "2020-03-09",
+      "gap": -0.071922,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLB",
+      "date": "2020-03-12",
+      "gap": -0.073196,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLB",
+      "date": "2020-03-13",
+      "gap": 0.064657,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLB",
+      "date": "2020-03-16",
+      "gap": -0.189637,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLB",
+      "date": "2020-03-18",
+      "gap": -0.064846,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLB",
+      "date": "2020-03-24",
+      "gap": 0.063103,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLB",
+      "date": "2025-12-05",
+      "gap": -0.498813,
+      "explanation": "split x0.5"
+    },
+    {
+      "symbol": "XLC",
+      "date": "2020-03-09",
+      "gap": -0.065636,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLC",
+      "date": "2020-03-12",
+      "gap": -0.064357,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLC",
+      "date": "2020-03-13",
+      "gap": 0.062058,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLC",
+      "date": "2020-03-16",
+      "gap": -0.14462,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLE",
+      "date": "2020-03-09",
+      "gap": -0.174824,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLE",
+      "date": "2020-03-10",
+      "gap": 0.080436,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLE",
+      "date": "2020-03-12",
+      "gap": -0.073656,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLE",
+      "date": "2020-03-13",
+      "gap": 0.084493,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLE",
+      "date": "2020-03-16",
+      "gap": -0.131718,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLE",
+      "date": "2020-03-18",
+      "gap": -0.07,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLE",
+      "date": "2020-03-24",
+      "gap": 0.077641,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLE",
+      "date": "2020-06-11",
+      "gap": -0.069729,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLE",
+      "date": "2020-11-09",
+      "gap": 0.119945,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLE",
+      "date": "2025-12-05",
+      "gap": -0.500867,
+      "explanation": "split x0.5"
+    },
+    {
+      "symbol": "XLF",
+      "date": "2020-03-09",
+      "gap": -0.099804,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLF",
+      "date": "2020-03-12",
+      "gap": -0.083187,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLF",
+      "date": "2020-03-13",
+      "gap": 0.07511,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLF",
+      "date": "2020-03-16",
+      "gap": -0.160521,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLF",
+      "date": "2020-03-18",
+      "gap": -0.062947,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLF",
+      "date": "2020-11-09",
+      "gap": 0.080929,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLI",
+      "date": "2020-03-09",
+      "gap": -0.079365,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLI",
+      "date": "2020-03-12",
+      "gap": -0.08492,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLI",
+      "date": "2020-03-16",
+      "gap": -0.106768,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLI",
+      "date": "2020-03-18",
+      "gap": -0.069728,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLI",
+      "date": "2020-03-24",
+      "gap": 0.060898,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLI",
+      "date": "2020-11-09",
+      "gap": 0.067986,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLK",
+      "date": "2020-03-09",
+      "gap": -0.082443,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLK",
+      "date": "2020-03-12",
+      "gap": -0.072575,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLK",
+      "date": "2020-03-13",
+      "gap": 0.062906,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLK",
+      "date": "2020-03-16",
+      "gap": -0.148117,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLK",
+      "date": "2020-03-18",
+      "gap": -0.066452,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLK",
+      "date": "2020-03-24",
+      "gap": 0.060511,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLK",
+      "date": "2024-08-05",
+      "gap": -0.062598,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLK",
+      "date": "2025-12-05",
+      "gap": -0.497681,
+      "explanation": "split x0.5"
+    },
+    {
+      "symbol": "XLP",
+      "date": "2020-03-12",
+      "gap": -0.064085,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLP",
+      "date": "2020-03-16",
+      "gap": -0.092916,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLRE",
+      "date": "2020-03-12",
+      "gap": -0.063362,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLRE",
+      "date": "2020-03-16",
+      "gap": -0.099405,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLU",
+      "date": "2020-03-16",
+      "gap": -0.090342,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLU",
+      "date": "2025-12-05",
+      "gap": -0.499886,
+      "explanation": "split x0.5"
+    },
+    {
+      "symbol": "XLV",
+      "date": "2020-03-12",
+      "gap": -0.061231,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLV",
+      "date": "2020-03-16",
+      "gap": -0.089786,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLY",
+      "date": "2020-03-09",
+      "gap": -0.074749,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLY",
+      "date": "2020-03-12",
+      "gap": -0.075581,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLY",
+      "date": "2020-03-16",
+      "gap": -0.109971,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLY",
+      "date": "2020-03-18",
+      "gap": -0.064238,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "XLY",
+      "date": "2025-12-05",
+      "gap": -0.499538,
+      "explanation": "split x0.5"
+    },
+    {
+      "symbol": "SPY",
+      "date": "2020-03-09",
+      "gap": -0.074497,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SPY",
+      "date": "2020-03-12",
+      "gap": -0.066919,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SPY",
+      "date": "2020-03-13",
+      "gap": 0.060376,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SPY",
+      "date": "2020-03-16",
+      "gap": -0.104485,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SPY",
+      "date": "2020-03-18",
+      "gap": -0.065467,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "IWM",
+      "date": "2020-03-09",
+      "gap": -0.071122,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "IWM",
+      "date": "2020-03-12",
+      "gap": -0.072371,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "IWM",
+      "date": "2020-03-16",
+      "gap": -0.090818,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "IWM",
+      "date": "2020-11-09",
+      "gap": 0.081469,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "DIA",
+      "date": "2020-03-09",
+      "gap": -0.067027,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "DIA",
+      "date": "2020-03-12",
+      "gap": -0.065044,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "DIA",
+      "date": "2020-03-13",
+      "gap": 0.063835,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "DIA",
+      "date": "2020-03-16",
+      "gap": -0.110336,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "DIA",
+      "date": "2020-03-18",
+      "gap": -0.067457,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EFA",
+      "date": "2020-03-09",
+      "gap": -0.066721,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EFA",
+      "date": "2020-03-12",
+      "gap": -0.075825,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EFA",
+      "date": "2020-03-13",
+      "gap": 0.064742,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EFA",
+      "date": "2020-03-16",
+      "gap": -0.119448,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EFA",
+      "date": "2020-03-18",
+      "gap": -0.061897,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EFA",
+      "date": "2020-03-24",
+      "gap": 0.075914,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EEM",
+      "date": "2020-03-09",
+      "gap": -0.072265,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EEM",
+      "date": "2020-03-12",
+      "gap": -0.088895,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EEM",
+      "date": "2020-03-13",
+      "gap": 0.086028,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EEM",
+      "date": "2020-03-16",
+      "gap": -0.114555,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EEM",
+      "date": "2020-03-18",
+      "gap": -0.085773,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EEM",
+      "date": "2020-03-24",
+      "gap": 0.065338,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "EEM",
+      "date": "2026-04-08",
+      "gap": 0.061944,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "TLT",
+      "date": "2020-03-09",
+      "gap": 0.073934,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "HYG",
+      "date": "2020-03-09",
+      "gap": -0.06361,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "HYG",
+      "date": "2020-04-09",
+      "gap": 0.060414,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2020-03-16",
+      "gap": -0.135866,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2020-03-24",
+      "gap": 0.074736,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2020-07-27",
+      "gap": 0.063649,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2020-08-11",
+      "gap": -0.065556,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2021-02-01",
+      "gap": 0.110844,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2025-12-29",
+      "gap": -0.076814,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2026-01-14",
+      "gap": 0.060305,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2026-01-20",
+      "gap": 0.063811,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2026-01-26",
+      "gap": 0.06953,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2026-01-30",
+      "gap": -0.153832,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2026-02-03",
+      "gap": 0.091248,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2026-02-04",
+      "gap": 0.073285,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2026-02-05",
+      "gap": -0.138292,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2026-03-03",
+      "gap": -0.090229,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2026-03-19",
+      "gap": -0.098981,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2026-04-02",
+      "gap": -0.067361,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "SLV",
+      "date": "2026-05-15",
+      "gap": -0.076414,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2019-09-16",
+      "gap": 0.091783,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-03-09",
+      "gap": -0.218786,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-03-10",
+      "gap": 0.087423,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-03-12",
+      "gap": -0.072046,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-03-16",
+      "gap": -0.125,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-03-18",
+      "gap": -0.113835,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-03-27",
+      "gap": -0.065217,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-04-03",
+      "gap": 0.11546,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-04-20",
+      "gap": -0.106888,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-04-21",
+      "gap": -0.149333,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-04-23",
+      "gap": 0.067729,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-04-27",
+      "gap": -0.105058,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-04-29",
+      "gap": 7.455399,
+      "explanation": "split x8.0"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-05-18",
+      "gap": 0.073694,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2020-11-09",
+      "gap": 0.080091,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2021-11-26",
+      "gap": -0.063529,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2022-03-09",
+      "gap": -0.063561,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2022-03-17",
+      "gap": 0.064001,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2022-06-22",
+      "gap": -0.062106,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2024-10-28",
+      "gap": -0.060084,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2025-04-03",
+      "gap": -0.071778,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2025-04-04",
+      "gap": -0.074048,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2025-06-13",
+      "gap": 0.072219,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-03-02",
+      "gap": 0.069189,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-03-03",
+      "gap": 0.079252,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-03-06",
+      "gap": 0.094175,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-03-09",
+      "gap": 0.097913,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-03-12",
+      "gap": 0.070708,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-03-23",
+      "gap": -0.067035,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-04-02",
+      "gap": 0.122331,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-04-08",
+      "gap": -0.137782,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-04-13",
+      "gap": 0.068499,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-04-17",
+      "gap": -0.088287,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-05-06",
+      "gap": -0.061317,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-07-29",
+      "gap": 0.066147,
+      "explanation": "MARKET or UNEXPLAINED"
+    },
+    {
+      "symbol": "USO",
+      "date": "2026-08-03",
+      "gap": -0.064798,
+      "explanation": "MARKET or UNEXPLAINED"
+    }
+  ]
+}

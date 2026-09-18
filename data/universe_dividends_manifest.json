@@ -1,0 +1,213 @@
+{
+  "generated_utc": "2026-09-18T13:59:15.783555+00:00",
+  "withholding_rate": 0.3,
+  "withholding_basis": "Singapore resident, no US treaty - docs/feasibility.md section 8",
+  "window": [
+    "2018-01-01",
+    "2026-09-12"
+  ],
+  "sample_start": "2018-09-10",
+  "sample_years": 8.0,
+  "treatment": "CASH EVENT on the ex-date, credited only to a position actually held on that date. Never applied by swapping in an adjusted price series, which would be look-ahead.",
+  "applies_to": "BOTH the rule and the buy-and-hold benchmark. The benchmark receives every distribution; the rule receives only those whose ex-date falls while it is IN.",
+  "splits_in_sample": [
+    {
+      "symbol": "XLB",
+      "ex_date": "2025-12-05",
+      "split_ratio": 0.5,
+      "in_sample": true
+    },
+    {
+      "symbol": "XLE",
+      "ex_date": "2025-12-05",
+      "split_ratio": 0.5,
+      "in_sample": true
+    },
+    {
+      "symbol": "XLK",
+      "ex_date": "2025-12-05",
+      "split_ratio": 0.5,
+      "in_sample": true
+    },
+    {
+      "symbol": "XLU",
+      "ex_date": "2025-12-05",
+      "split_ratio": 0.5,
+      "in_sample": true
+    },
+    {
+      "symbol": "XLY",
+      "ex_date": "2025-12-05",
+      "split_ratio": 0.5,
+      "in_sample": true
+    },
+    {
+      "symbol": "USO",
+      "ex_date": "2020-04-29",
+      "split_ratio": 8.0,
+      "in_sample": true
+    }
+  ],
+  "splits_all": [
+    {
+      "symbol": "XLB",
+      "ex_date": "2025-12-05",
+      "split_ratio": 0.5,
+      "in_sample": true
+    },
+    {
+      "symbol": "XLE",
+      "ex_date": "2025-12-05",
+      "split_ratio": 0.5,
+      "in_sample": true
+    },
+    {
+      "symbol": "XLK",
+      "ex_date": "2025-12-05",
+      "split_ratio": 0.5,
+      "in_sample": true
+    },
+    {
+      "symbol": "XLU",
+      "ex_date": "2025-12-05",
+      "split_ratio": 0.5,
+      "in_sample": true
+    },
+    {
+      "symbol": "XLY",
+      "ex_date": "2025-12-05",
+      "split_ratio": 0.5,
+      "in_sample": true
+    },
+    {
+      "symbol": "USO",
+      "ex_date": "2020-04-29",
+      "split_ratio": 8.0,
+      "in_sample": true
+    }
+  ],
+  "failed": [],
+  "per_symbol": [
+    {
+      "symbol": "DIA",
+      "n_ex_dates": 96,
+      "gross_total_per_share": 51.2771,
+      "net_total_per_share": 35.894
+    },
+    {
+      "symbol": "EEM",
+      "n_ex_dates": 16,
+      "gross_total_per_share": 7.1602,
+      "net_total_per_share": 5.0121
+    },
+    {
+      "symbol": "EFA",
+      "n_ex_dates": 17,
+      "gross_total_per_share": 18.3011,
+      "net_total_per_share": 12.8108
+    },
+    {
+      "symbol": "HYG",
+      "n_ex_dates": 96,
+      "gross_total_per_share": 34.595,
+      "net_total_per_share": 24.2165
+    },
+    {
+      "symbol": "IEF",
+      "n_ex_dates": 96,
+      "gross_total_per_share": 19.5503,
+      "net_total_per_share": 13.6852
+    },
+    {
+      "symbol": "IWM",
+      "n_ex_dates": 32,
+      "gross_total_per_share": 18.6492,
+      "net_total_per_share": 13.0545
+    },
+    {
+      "symbol": "LQD",
+      "n_ex_dates": 96,
+      "gross_total_per_share": 33.2938,
+      "net_total_per_share": 23.3057
+    },
+    {
+      "symbol": "SPY",
+      "n_ex_dates": 32,
+      "gross_total_per_share": 50.7868,
+      "net_total_per_share": 35.5507
+    },
+    {
+      "symbol": "TLT",
+      "n_ex_dates": 96,
+      "gross_total_per_share": 25.9615,
+      "net_total_per_share": 18.1731
+    },
+    {
+      "symbol": "XLB",
+      "n_ex_dates": 32,
+      "gross_total_per_share": 11.5226,
+      "net_total_per_share": 8.0658
+    },
+    {
+      "symbol": "XLC",
+      "n_ex_dates": 32,
+      "gross_total_per_share": 5.7864,
+      "net_total_per_share": 4.0505
+    },
+    {
+      "symbol": "XLE",
+      "n_ex_dates": 33,
+      "gross_total_per_share": 21.9463,
+      "net_total_per_share": 15.3624
+    },
+    {
+      "symbol": "XLF",
+      "n_ex_dates": 32,
+      "gross_total_per_share": 5.2668,
+      "net_total_per_share": 3.6868
+    },
+    {
+      "symbol": "XLI",
+      "n_ex_dates": 32,
+      "gross_total_per_share": 13.3054,
+      "net_total_per_share": 9.3138
+    },
+    {
+      "symbol": "XLK",
+      "n_ex_dates": 32,
+      "gross_total_per_share": 9.915,
+      "net_total_per_share": 6.9405
+    },
+    {
+      "symbol": "XLP",
+      "n_ex_dates": 32,
+      "gross_total_per_share": 14.9897,
+      "net_total_per_share": 10.4928
+    },
+    {
+      "symbol": "XLRE",
+      "n_ex_dates": 32,
+      "gross_total_per_share": 10.5387,
+      "net_total_per_share": 7.3771
+    },
+    {
+      "symbol": "XLU",
+      "n_ex_dates": 32,
+      "gross_total_per_share": 15.8504,
+      "net_total_per_share": 11.0953
+    },
+    {
+      "symbol": "XLV",
+      "n_ex_dates": 33,
+      "gross_total_per_share": 16.6979,
+      "net_total_per_share": 11.6885
+    },
+    {
+      "symbol": "XLY",
+      "n_ex_dates": 32,
+      "gross_total_per_share": 11.1385,
+      "net_total_per_share": 7.7969
+    }
+  ],
+  "file": "data/universe_dividends.csv"
+}
