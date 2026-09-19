@@ -7,6 +7,17 @@ denominator as every other result in this project.
 This is not a strategy proposal. It is the arithmetic of the question "I want profit"
 once the operator's 20 % abandon point is taken seriously.
 
+WHY THE RISK MANAGER IS BYPASSED HERE, EXPLICITLY. This is a BENCHMARK - "hold a
+fixed fraction, rebalance both ways" - not a strategy under the mandate's controls.
+An earlier version ran it with the live RiskManager. The DRAWDOWN halt fired at the
+first -8% drawdown (2008-02-06 on the 20-year window, 2010-07-01 post-GFC), never
+auto-resumes, and lets risk-REDUCING orders through while blocking buys. Every
+"static weight" therefore became "sell-only after the first drawdown": it sold on
+the way up but never bought back at the 2009, 2020 or 2022 lows. Realised weight
+sagged to 21% at the 2009 bottom against a 35% target. Those runs are kept as
+reports/*_VOID_halt_sellonly.* and must not be quoted. The bypass is a named engine
+flag and is recorded in summary["risk_controls"].
+
 Usage: python tools/static_sweep.py
 """
 
@@ -24,7 +35,6 @@ sys.path.insert(0, ROOT)
 
 from src.backtest.engine import Backtester, ExecutionModel  # noqa: E402
 from src.data.bars import load_5min  # noqa: E402
-from src.risk.controls import RiskLimits, RiskManager  # noqa: E402
 from src.strategy.vol_target import static_blend  # noqa: E402
 
 bars = load_5min(os.path.join(ROOT, "data", "raw", "US_QQQ_5min_raw.csv"),
@@ -43,12 +53,10 @@ print("-" * 96)
 
 rows = []
 for w in WEIGHTS:
-    # Risk controls left ON, but the exposure cap must not silently override the weight
-    # being tested; the abandon point is what we are measuring against.
-    lim = RiskLimits(max_weight=max(w, 0.90) if w > 0.90 else 0.90)
+    # Benchmark, not a strategy: the risk manager is bypassed on purpose (see header).
     bt = Backtester(bars, initial_cash=10_000.0, execution=ExecutionModel(),
                     dividends=divs, lookback=2,
-                    risk=RiskManager(RiskLimits(max_weight=1.0)))
+                    bypass_risk_controls=True)
     res = bt.run(static_blend(w), warmup=1)
     s = res.summary
     eq = res.equity

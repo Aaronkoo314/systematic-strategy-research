@@ -5,6 +5,17 @@ the operator's 20 % abandon point. That sample began in 2018. This one begins in
 and contains a -53 % decline, so the answer is expected to change - and by how much is
 the number that actually decides the allocation.
 
+WHY THE RISK MANAGER IS BYPASSED HERE, EXPLICITLY. This is a BENCHMARK - "hold a
+fixed fraction, rebalance both ways" - not a strategy under the mandate's controls.
+An earlier version ran it with the live RiskManager. The DRAWDOWN halt fired at the
+first -8% drawdown (2008-02-06 on the 20-year window, 2010-07-01 post-GFC), never
+auto-resumes, and lets risk-REDUCING orders through while blocking buys. Every
+"static weight" therefore became "sell-only after the first drawdown": it sold on
+the way up but never bought back at the 2009, 2020 or 2022 lows. Realised weight
+sagged to 21% at the 2009 bottom against a 35% target. Those runs are kept as
+reports/*_VOID_halt_sellonly.* and must not be quoted. The bypass is a named engine
+flag and is recorded in summary["risk_controls"].
+
 Usage: python tools/static_sweep_daily.py
 """
 
@@ -22,7 +33,6 @@ sys.path.insert(0, ROOT)
 
 from src.backtest.engine import Backtester, ExecutionModel  # noqa: E402
 from src.data.bars import load_daily  # noqa: E402
-from src.risk.controls import RiskLimits, RiskManager  # noqa: E402
 from src.strategy.vol_target import static_blend  # noqa: E402
 
 bars = load_daily(os.path.join(ROOT, "data", "raw", "US_QQQ_daily.csv"))
@@ -50,7 +60,7 @@ for label, (lo, hi) in PERIODS.items():
     for w in WEIGHTS:
         bt = Backtester(bars, initial_cash=10_000.0, execution=ExecutionModel(),
                         dividends=divs, lookback=2,
-                        risk=RiskManager(RiskLimits(max_weight=1.0)))
+                        bypass_risk_controls=True)
         res = bt.run(static_blend(w), start=start, end=end, warmup=1)
         s = res.summary
         dd = float(s["max_drawdown"])
