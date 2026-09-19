@@ -357,5 +357,8 @@
       "file": "data/raw/US_USO_daily.csv",
       "sha256": "a7c201ccd1085a20192c695f48ca35f61b397f7e30b9e88646af9ef545604685"
     }
-  ]
+  ],
+  "flags_resolved": {
+    "XLF_qfq_steps_42.6_per_year": "FALSE ALARM. 853 ratio steps, 100-170/yr in 2008-2012, exactly 4/yr from 2020 (quarterly dividends, correct). Largest steps all on quarterly ex-dates. The excess is float noise: QFQ is affine P_adj = P*A + B, so ratio = A + B/P moves with price by construction, and XLF traded at 6-15 USD post-2008. Median excess step 0.000193 vs 0.0039 for a real XLI dividend step. Same heuristic misfire previously made and corrected on QQQ (3,535 'unexplained' steps). No corporate action missing; the ratio-diff heuristic is not a corporate-action detector on low-priced series."
+  }
 }
