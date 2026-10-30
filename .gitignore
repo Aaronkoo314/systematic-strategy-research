@@ -44,3 +44,6 @@ logs/*.log
 reports/equity_validation.csv
 reports/equity_test.csv
 reports/smoke_equity_daily.csv
+
+# --- Demo outputs of tools/validate_candidate.py: regenerable ---
+reports/validation_demo/
